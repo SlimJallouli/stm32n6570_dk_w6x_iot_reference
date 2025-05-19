@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>stm32n6570_dk_w6x_iot_reference_Appli</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<triggers>clean,full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUSecureProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUAppliPythonProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUIsSecureRefProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUMultiLinkerEnabledProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUBootModeEnabledProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_cortex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_cortex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_dma.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_dma.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_dma_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_dma_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_exti.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_exti.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_gpio.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_gpio.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_pwr.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_pwr.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_pwr_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_pwr_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_rcc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_rcc.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_rcc_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_rcc_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_rif.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_rif.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_rng.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_rng.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_rng_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_rng_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_spi.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_spi.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_spi_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_spi_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_tim.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_tim.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_tim_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_tim_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_uart.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_uart.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_uart_ex.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_uart_ex.c</locationURI>
+		</link>
+		<link>
+			<name>Drivers/STM32N6xx_HAL_Driver/stm32n6xx_hal_xspi.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Drivers/STM32N6xx_HAL_Driver/Src/stm32n6xx_hal_xspi.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_extmem.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/stm32_extmem.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_psram_driver.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/psram/stm32_psram_driver.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_sal_sd.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/sal/stm32_sal_sd.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_sal_xspi.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/sal/stm32_sal_xspi.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_sdcard_driver.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/sdcard/stm32_sdcard_driver.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_sfdp_data.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/nor_sfdp/stm32_sfdp_data.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_sfdp_driver.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/nor_sfdp/stm32_sfdp_driver.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/ST/STM32_ExtMem_Manager/stm32_user_driver.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STM32_ExtMem_Manager/user/stm32_user_driver.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/AWS_IoT_Device_Shadow/AWS IoT/AWS IoT Device Shadow/shadow.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_AWS%20IoT/Device-Shadow-for-AWS-IoT-embedded-sdk/source/shadow.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Coroutines/croutine.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/croutine.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Event Groups/event_groups.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/event_groups.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Message Buffer/stream_buffer.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/stream_buffer.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Timers/timers.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/timers.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/backoffAlgorithm/FreeRTOS/backoffAlgorithm/backoff_algorithm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/backoffAlgorithm/source/backoff_algorithm.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/coreJSON/FreeRTOS/coreJSON/core_json.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/coreJSON/source/core_json.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/coreMQTT/FreeRTOS/coreMQTT/core_mqtt.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/coreMQTT/source/core_mqtt.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/coreMQTT/FreeRTOS/coreMQTT/core_mqtt_serializer.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/coreMQTT/source/core_mqtt_serializer.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/coreMQTT/FreeRTOS/coreMQTT/core_mqtt_state.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/coreMQTT/source/core_mqtt_state.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/coreMQTT_Agent/FreeRTOS/coreMQTT Agent/core_mqtt_agent.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/coreMQTT-Agent/source/core_mqtt_agent.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/coreMQTT_Agent/FreeRTOS/coreMQTT Agent/core_mqtt_agent_command_functions.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/AWS_FreeRTOS/coreMQTT-Agent/source/core_mqtt_agent_command_functions.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/aes.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/aes.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/aria.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/aria.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/asn1parse.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/asn1parse.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/asn1write.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/asn1write.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/base64.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/base64.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/bignum.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/bignum.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/camellia.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/camellia.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ccm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ccm.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/chacha20.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/chacha20.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/chachapoly.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/chachapoly.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/cipher.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/cipher.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/cipher_wrap.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/cipher_wrap.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/cmac.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/cmac.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/constant_time.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/constant_time.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ctr_drbg.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ctr_drbg.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/debug.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/debug.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/des.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/des.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/dhm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/dhm.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ecdh.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ecdh.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ecdsa.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ecdsa.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ecjpake.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ecjpake.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ecp.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ecp.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ecp_curves.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ecp_curves.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/entropy.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/entropy.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/entropy_poll.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/entropy_poll.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/error.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/error.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/gcm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/gcm.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/hkdf.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/hkdf.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/hmac_drbg.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/hmac_drbg.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/md.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/md.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/md5.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/md5.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/memory_buffer_alloc.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/memory_buffer_alloc.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/mps_reader.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/mps_reader.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/mps_trace.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/mps_trace.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/net_sockets.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/net_sockets.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/nist_kw.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/nist_kw.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/oid.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/oid.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pem.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pem.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pk.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pk.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pk_wrap.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pk_wrap.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pkcs12.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pkcs12.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pkcs5.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pkcs5.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pkparse.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pkparse.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/pkwrite.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/pkwrite.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/platform.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/platform.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/platform_util.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/platform_util.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/poly1305.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/poly1305.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_aead.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_aead.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_cipher.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_cipher.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_client.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_client.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_driver_wrappers.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_driver_wrappers.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_ecp.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_ecp.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_hash.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_hash.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_mac.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_mac.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_rsa.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_rsa.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_se.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_se.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_slot_management.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_slot_management.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_crypto_storage.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_crypto_storage.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/psa_its_file.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/psa_its_file.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ripemd160.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ripemd160.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/rsa.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/rsa.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/rsa_alt_helpers.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/rsa_alt_helpers.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/sha1.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/sha1.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/sha256.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/sha256.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/sha512.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/sha512.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_cache.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_cache.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_ciphersuites.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_ciphersuites.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_cli.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_cli.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_cookie.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_cookie.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_debug_helpers_generated.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_debug_helpers_generated.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_msg.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_msg.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_srv.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_srv.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_ticket.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_ticket.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_tls.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_tls.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_tls13_client.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_tls13_client.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_tls13_generic.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_tls13_generic.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_tls13_keys.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_tls13_keys.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/ssl_tls13_server.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/ssl_tls13_server.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/threading.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/threading.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/timing.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/timing.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/version.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/version.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/version_features.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/version_features.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509_create.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509_create.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509_crl.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509_crl.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509_crt.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509_crt.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509_csr.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509_csr.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509write_crt.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509write_crt.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/mbedTLS/Security/mbed TLS/x509write_csr.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_Security/library/x509write_csr.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Core/Cortex-M/freertos_evr.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/CMSIS/RTOS2/FreeRTOS/Source/freertos_evr.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Core/Cortex-M/list.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/list.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Core/Cortex-M/port.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/portable/GCC/ARM_CM55_NTZ/non_secure/port.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Core/Cortex-M/portasm.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/portable/GCC/ARM_CM55_NTZ/non_secure/portasm.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Core/Cortex-M/queue.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/queue.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Core/Cortex-M/tasks.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/tasks.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/FreeRTOS/RTOS/Heap/Heap_4/heap_4.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/portable/MemMang/heap_4.c</locationURI>
+		</link>
+		<link>
+			<name>Middlewares/STDIO/Compiler/I O/STDOUT/SWD/stdout_swd.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Middlewares/ST/STDIO/stdout_swd.c</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
