@@ -145,7 +145,7 @@ __weak unsigned long getRunTimeCounterValue(void)
 void MX_FREERTOS_Init(void)
 {
   /* USER CODE BEGIN Init */
-	BaseType_t xResult;
+  BaseType_t xResult;
 
   /* Initialize uart for logging before cli is up and running */
   vInitLoggingEarly();

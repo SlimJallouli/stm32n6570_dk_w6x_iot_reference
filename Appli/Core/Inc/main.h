@@ -105,7 +105,6 @@ void Error_Handler(void);
 #define LED_BLUE_GPIO_Port GPIOG
 
 /* USER CODE BEGIN Private defines */
-/* USER CODE BEGIN Private defines */
 /********** X-NUCLEO-WW611M1 Pin definition ***********/
 #define LP_WAKEUP_Pin                           ARD_D10_Pin
 #define LP_WAKEUP_GPIO_Port                     ARD_D10_GPIO_Port
@@ -120,8 +119,10 @@ void Error_Handler(void);
 #define SPI_SLAVE_DATA_RDY_GPIO_Port            ARD_D03_GPIO_Port
 #define SPI_SLAVE_DATA_RDY_EXTI_IRQn            ARD_D03_EXTI_IRQn
 
+/************ Board LED Pin configuration *************/
 #define LED_RED_ON                              GPIO_PIN_RESET
 #define LED_RED_OFF                             GPIO_PIN_SET
+
 /**************** MbedTLS debug config ****************/
 #define MBEDTLS_DEBUG_NO_DEBUG                  0 /* No debug messages are displayed                                        */
 #define MBEDTLS_DEBUG_ERROR                     1 /* Only error messages are shown                                          */

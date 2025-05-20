@@ -811,7 +811,7 @@ void vShadowDeviceTask( void * pvParameters )
             }
             else
 #endif
-            	if (xIsMqttConnected() == pdTRUE)
+            if (xIsMqttConnected() == pdTRUE)
             {
                 LogInfo( "PowerOn state is now %u. Sending new report.", ( unsigned int ) xShadowCtx.ulCurrentPowerOnState );
 
@@ -867,11 +867,10 @@ void vShadowDeviceTask( void * pvParameters )
             LogDebug( "Sleeping until next update check." );
             uint32_t ulNotificationValue;
             xTaskNotifyWaitIndexed(NOTIFY_INDEX,
-            		               0,
+                                   0,
                                    0xFFFFFFFF,
-								   &ulNotificationValue,
-								   pdMS_TO_TICKS( portMAX_DELAY ));
-//            vTaskDelay( pdMS_TO_TICKS( shadowMS_BETWEEN_REPORTS ) );
+                                   &ulNotificationValue,
+                                   pdMS_TO_TICKS( portMAX_DELAY ));
         }
     }
     else

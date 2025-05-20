@@ -25,7 +25,6 @@
 #include MBEDTLS_CONFIG_FILE
 
 #include "string.h"
-//#include "entropy_poll.h"
 
 #if defined(__USE_STSAFE__)
 extern uint8_t SAFEA1_GenerateRandom(uint8_t size, uint8_t *random);
