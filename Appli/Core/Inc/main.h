@@ -143,8 +143,6 @@ void Error_Handler(void);
 
 #define MQTT_ENABLED                            (DEMO_PUB_SUB || DEMO_OTA || DEMO_ENV_SENSOR || DEMO_MOTION_SENSOR || DEMO_SHADOW)
 
-#define BOARD                                   "stm32n6570_dk"
-
 #define TASK_PRIO_OTA                           (tskIDLE_PRIORITY + 1)
 #define TASK_PRIO_SNTP                          (tskIDLE_PRIORITY + 2)
 #define TASK_PRIO_DEFENDER                      5
@@ -180,9 +178,12 @@ void Error_Handler(void);
 #define W61_ATD_RX_TASK_PRIO                    20         /* w61_at_rx_parser.h, W61 AT Rx parser task priority, recommended to be higher than application tasks */
 #define SPI_THREAD_PRIO                         17         /* spi_iface.c        */
 
+/********************* Board config *********************/
 #define democonfigMAX_THING_NAME_LENGTH         128
-#define democonfigDEVICE_PREFIX                 "stm32n6"
 
+#define BOARD                                   "stm32n6570_dk"
+#define democonfigDEVICE_PREFIX                 "stm32n6"
+#define OTA_FILE_NAME                           "stm32n6570_dk_w6x_iot_reference_Appli.bin"
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

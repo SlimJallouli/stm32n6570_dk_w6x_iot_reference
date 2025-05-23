@@ -130,11 +130,14 @@
 							<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec.313189467" name="MCU Output Converter Motorola S-rec with symbols" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.objcopy.symbolsrec"/>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.1546721135.120828138" name="w6x_ble_shell.c" rcbsApplicability="disable" resourcePath="Libraries/ST67W6X_Network_Driver/Core/w6x_ble_shell.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1409409123.764488064">
+						<tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1409409123.764488064" name="MCU/MPU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.1409409123"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry excluding="app/sntp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Common"/>
 						<entry excluding="Src/sysmem.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
-						<entry excluding="tinycbor/tools|tinycbor/tests|tinycbor/src/open_memstream.c|tinycbor/examples|littlefs/runners|littlefs/bd|corePKCS11/source/portable|corePKCS11/test|ST67W6X_Network_Driver/Conf/spi_port_template.c|ST67W6X_Network_Driver/Utils/Shell|ST67W6X_Network_Driver/Utils/Performance|ST67W6X_Network_Driver/Utils/Logging|ST67W6X_Network_Driver/Core/w6x_mqtt_shell.c|ST67W6X_Network_Driver/Core/w6x_net_shell.c|ST67W6X_Network_Driver/Core/w6x_sys_shell.c|ST67W6X_Network_Driver/Core/w6x_wifi_shell.c|CommonIO" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Libraries"/>
+						<entry excluding="ST67W6X_Network_Driver/Core/w6x_ble_shell.c|tinycbor/tools|tinycbor/tests|tinycbor/src/open_memstream.c|tinycbor/examples|littlefs/runners|littlefs/bd|corePKCS11/source/portable|corePKCS11/test|ST67W6X_Network_Driver/Conf/spi_port_template.c|ST67W6X_Network_Driver/Utils/Shell|ST67W6X_Network_Driver/Utils/Performance|ST67W6X_Network_Driver/Utils/Logging|ST67W6X_Network_Driver/Core/w6x_mqtt_shell.c|ST67W6X_Network_Driver/Core/w6x_net_shell.c|ST67W6X_Network_Driver/Core/w6x_sys_shell.c|ST67W6X_Network_Driver/Core/w6x_wifi_shell.c|CommonIO" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Libraries"/>
 						<entry excluding="coreMQTT/FreeRTOS/coreMQTT/core_mqtt.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Secure"/>
 					</sourceEntries>
@@ -159,6 +162,7 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Single (Create single thing)"/>
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/stm32n6570_dk_w6x_iot_reference_Appli"/>
 		</configuration>
