@@ -30,13 +30,24 @@
 #include "FreeRTOS.h"
 #include "event_groups.h"
 
-#define EVT_MASK_FS_READY          (0x01<<0)
-#define EVT_MASK_NET_INIT          (0x01<<1)
-#define EVT_MASK_NET_CONNECTED     (0x01<<2)
-#define EVT_MASK_NET_DISCONNECTED  (0x01<<3)
-#define EVT_MASK_MQTT_INIT         (0x01<<4)
-#define EVT_MASK_MQTT_CONNECTED    (0x01<<5)
-#define EVT_MASK_NET_READABLE      (0x01<<6)
+#define EVT_MASK_FS_READY            (0x01<<0)
+#define EVT_MASK_NET_INIT            (0x01<<1)
+#define EVT_MASK_NET_CONNECTED       (0x01<<2)
+#define EVT_MASK_NET_DISCONNECTED    (0x01<<3)
+#define EVT_MASK_MQTT_INIT           (0x01<<4)
+#define EVT_MASK_MQTT_CONNECTED      (0x01<<5)
+#define EVT_MASK_NET_READABLE        (0x01<<6)
+
+#define EVT_OTA_UPDATE_AVAILABLE     (0x01 << 0)
+#define EVT_OTA_UPDATE_START         (0x01 << 1)
+#define EVT_OTA_COMPLETED            (0x01 << 2)
+#define EVT_OTA_UPDATE_ABORT         (0x01 << 3)
+#define EVT_COMMAND_RESET            (0x01 << 4)
+#define EVT_COMMAND_REPUBLISH_CONFIG (0x01 << 5)
+#define EVT_DOOR_OPENED              (0x01 << 7)
+#define EVT_DOOR_CLOSED              (0x01 << 8)
+#define EVT_DOOR_STATE_CHANGED       (0x01 << 9)
+
 extern EventGroupHandle_t xSystemEvents;
 
 #endif /* _SYS_EVT_H */

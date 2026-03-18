@@ -205,7 +205,8 @@ static void vSubCommand_GenerateCsr( ConsoleIO_t * pxCIO,
     if( xStatus == PKI_SUCCESS )
     {
         mbedtls_x509write_csr xCsr;
-        static const char * pcSubjectNamePrefix = "CN=";
+//        static const char * pcSubjectNamePrefix = "CN=";
+        static const char * pcSubjectNamePrefix = "C=US,O=STMicroelectonics,CN=";
         size_t xSubjectNameLen = KVStore_getSize( CS_CORE_THING_NAME ) + strlen( pcSubjectNamePrefix );
         char * pcSubjectName = pvPortMalloc( xSubjectNameLen );
 
@@ -557,6 +558,107 @@ static void vSubCommand_GenerateKey( ConsoleIO_t * pxCIO,
 
     if( pucPublicKeyDer )
     {
+        /* Free heap allocated memory */
+        vPortFree( pucPublicKeyDer );
+        pucPublicKeyDer = NULL;
+    }
+}
+#else
+static void vSubCommand_GenerateCsr( ConsoleIO_t * pxCIO,
+                                     uint32_t ulArgc,
+                                     char * ppcArgv[] )
+{
+    mbedtls_x509_crt xCertificateContext;
+    char * pcCertLabel = NULL;
+    PkiStatus_t xStatus = PKI_SUCCESS;
+    PkiObject_t xCert;
+
+    pcCertLabel = TLS_CERT_LABEL;
+    mbedtls_x509_crt_init( &xCertificateContext );
+
+    xCert = xPkiObjectFromLabel( pcCertLabel );
+
+    xStatus = xPkiReadCertificate( &xCertificateContext, &xCert );
+
+    if( xStatus == PKI_SUCCESS )
+    {
+        vPrintDer( pxCIO,
+                   "-----BEGIN CERTIFICATE-----\r\n",
+                   "-----END CERTIFICATE-----\r\n",
+                   xCertificateContext.raw.p,
+                   xCertificateContext.raw.len );
+
+        mbedtls_x509_crt_free( &xCertificateContext );
+    }
+}
+
+static void vSubCommand_GenerateCertificate( ConsoleIO_t * pxCIO,
+                                             uint32_t ulArgc,
+                                             char * ppcArgv[] )
+{
+    mbedtls_x509_crt xCertificateContext;
+    char * pcCertLabel = NULL;
+    PkiStatus_t xStatus = PKI_SUCCESS;
+    PkiObject_t xCert;
+
+    pcCertLabel = TLS_CERT_LABEL;
+    mbedtls_x509_crt_init( &xCertificateContext );
+
+    xCert = xPkiObjectFromLabel( pcCertLabel );
+
+    xStatus = xPkiReadCertificate( &xCertificateContext, &xCert );
+
+    if( xStatus == PKI_SUCCESS )
+    {
+        vPrintDer( pxCIO,
+                   "-----BEGIN CERTIFICATE-----\r\n",
+                   "-----END CERTIFICATE-----\r\n",
+                   xCertificateContext.raw.p,
+                   xCertificateContext.raw.len );
+
+        mbedtls_x509_crt_free( &xCertificateContext );
+    }
+}
+
+static void vSubCommand_GenerateKey( ConsoleIO_t * pxCIO,
+                                     uint32_t ulArgc,
+                                     char * ppcArgv[] )
+{
+    PkiStatus_t xStatus = PKI_SUCCESS;
+    char * pcPubKeyLabel = NULL;
+    unsigned char * pucPublicKeyDer = NULL;
+    size_t uxPublicKeyDerLen = 0;
+    PkiObject_t xPubKeyObj;
+
+    pcPubKeyLabel = TLS_KEY_PUB_LABEL;
+
+    xPubKeyObj = xPkiObjectFromLabel( pcPubKeyLabel );
+
+    xStatus = xPkiReadPublicKeyDer( &pucPublicKeyDer, &uxPublicKeyDerLen, &xPubKeyObj );
+
+    /* If successful, print public key in PEM form to terminal. */
+    if( xStatus == PKI_SUCCESS )
+    {
+        pxCIO->print( "Public Key Label: " );
+    }
+    else
+    {
+        pxCIO->print( "ERROR: Failed to locate public key with label: '" );
+    }
+
+    pxCIO->write( pcPubKeyLabel, strnlen( pcPubKeyLabel, configTLS_MAX_LABEL_LEN ) );
+    pxCIO->print( "\r\n" );
+
+    /* Print PEM public key */
+    if( ( pucPublicKeyDer != NULL ) &&
+        ( uxPublicKeyDerLen > 0 ) )
+    {
+        vPrintDer( pxCIO,
+                   "-----BEGIN PUBLIC KEY-----\r\n",
+                   "-----END PUBLIC KEY-----\r\n",
+                   pucPublicKeyDer,
+                   uxPublicKeyDerLen );
+
         /* Free heap allocated memory */
         vPortFree( pucPublicKeyDer );
         pucPublicKeyDer = NULL;
@@ -1105,7 +1207,7 @@ static void vSubCommand_ImportPrivKey( ConsoleIO_t * pxCIO,
             pxCIO->print( "Success: Priv Key loaded to label: '" );
             pxCIO->print( pcPrivKeyLabel );
             pxCIO->print( "\r\n" );
-            pxCIO->print( pucPemBuffer );
+            pxCIO->print( (char *) pucPemBuffer );
             pxCIO->print( "\r\n" );
         }
         else
@@ -1210,7 +1312,7 @@ static void vSubCommand_ExportPubKey( ConsoleIO_t * pxCIO,
     }
 }
 
-#if defined(FLEET_PROVISION_DEMO)
+#if 0//defined(DEMO_AWS_FLEET_PROVISION)
 static void vSubCommand_ExportPrivbKey( ConsoleIO_t * pxCIO,
                                         uint32_t ulArgc,
                                         char * ppcArgv[] )
@@ -1402,7 +1504,7 @@ static void vCommand_PKI( ConsoleIO_t * pxCIO,
                       vSubCommand_ExportPubKey( pxCIO, ulArgc, ppcArgv );
                       xSuccess = pdTRUE;
                     }
-#if defined(FLEET_PROVISION_DEMO)
+#if 0//defined(DEMO_AWS_FLEET_PROVISION)
                     else if( 0 == strcmp( pcKeyLabel, TLS_FLEET_KEY_PRIV_LABEL ) )
                     {
                       vSubCommand_ExportPrivbKey( pxCIO, ulArgc, ppcArgv );

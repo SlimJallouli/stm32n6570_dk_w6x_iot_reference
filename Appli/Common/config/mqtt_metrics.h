@@ -50,7 +50,7 @@
  * current value is given as an example. Please update for your specific
  * hardware platform.
  */
-#define METRICS_PLATFORM_NAME    "STM32-67"
+#define METRICS_PLATFORM_NAME    "STM32"
 
 /**
  * @brief The name of the MQTT library used and its version, following an "@"
@@ -66,18 +66,14 @@
 /**
  * @brief The MQTT metrics string expected by AWS IoT.
  */
-#if 0
 #define AWS_IOT_METRICS_STRING                             \
     "?SDK=" METRICS_OS_NAME "&Version=" METRICS_OS_VERSION \
     "&Platform=" METRICS_PLATFORM_NAME "&MQTTLib=" METRICS_MQTT_LIB
-#else
-#define AWS_IOT_METRICS_STRING "?SDK=" METRICS_OS_NAME "&Platform=" METRICS_PLATFORM_NAME
-//#define AWS_IOT_METRICS_STRING ""
-#endif
+
+#define AWS_IOT_METRICS_STRING_LENGTH    ( ( uint16_t ) ( sizeof( AWS_IOT_METRICS_STRING ) - 1 ) )
 
 /**
  * @brief The length of the MQTT metrics string expected by AWS IoT.
  */
-#define AWS_IOT_METRICS_STRING_LENGTH    ( ( uint16_t ) ( sizeof( AWS_IOT_METRICS_STRING ) - 1 ) )
 
 #endif /* MQTT_METRICS_H */

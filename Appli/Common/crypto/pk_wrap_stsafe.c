@@ -17,6 +17,8 @@
  *  limitations under the License.
  */
 #if defined(__USE_STSAFE__)
+#define MBEDTLS_ALLOW_PRIVATE_ACCESS
+
 #include "main.h"
 #include "stsafe.h"
 #include "common.h"

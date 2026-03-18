@@ -23,8 +23,8 @@
 #ifndef TLS_TRANSPORT_CONFIG
 #define TLS_TRANSPORT_CONFIG
 
-#if defined(ST67W6X)
-#include "w6x_lwip_port.h"
+#if defined(ST67W6X_RCP)
+#include "st67w6x_netconn.h"
 #endif
 
 #include "tls_transport_lwip.h"

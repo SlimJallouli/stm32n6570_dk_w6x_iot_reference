@@ -1,5 +1,5 @@
 /*
- * coreMQTT v2.1.1
+ * coreMQTT v2.3.1
  * Copyright (C) 2022 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -44,8 +44,11 @@
 /**
  * @cond DOXYGEN_IGNORE
  * The current version of this library.
+ *
+ * If MQTT_LIBRARY_VERSION ends with + it represents the version in development
+ * after the numbered release.
  */
-#define MQTT_LIBRARY_VERSION    "v2.1.1"
+#define MQTT_LIBRARY_VERSION    "v2.3.1"
 /** @endcond */
 
 /**
@@ -68,6 +71,14 @@ struct MQTTDeserializedInfo;
  *
  * @note The timer should be a monotonic timer. It just needs to provide an
  * incrementing count of milliseconds elapsed since a given epoch.
+ *
+ * @note As the timer is supposed to be a millisecond timer returning a 32-bit
+ * value, it will overflow in just under 50 days. But it will not cause any issues
+ * in the library as the time function is only used for calculating durations for
+ * timeouts and keep alive periods. The difference in unsigned numbers is
+ * used where unsigned wrap around is defined. Unless the timeout is bigger than
+ * 100 days (50*2) where the numbers can wrap around more than once the code
+ * should work properly.
  *
  * @return The time elapsed in milliseconds.
  */

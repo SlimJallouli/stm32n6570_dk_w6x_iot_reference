@@ -17,3 +17,31 @@ echo "Home : " $HOME
 # Copy the contents from mbedTLS_source to mbedTLS_destination
 cp -r "$mbedTLS_source" "$mbedTLS_destination"
 echo "Content copied from $mbedTLS_source to $mbedTLS_destination"
+
+rm -rf "./Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/examples"
+echo "Removed ./Middlewares/Third_Party/ARM_RTOS_FreeRTOS/Source/examples"
+
+rm -rf "./Middlewares/Third_Party/lwIP_Network_lwIP/rte"
+echo "Removed ./Middlewares/Third_Party/lwIP_Network_lwIP/rte"
+
+rm -rf "./Middlewares/Third_Party/lwIP_Network_lwIP/ports/freertos/include"
+echo "Removed ./Middlewares/Third_Party/lwIP_Network_lwIP/ports/freertos/include"
+
+rm -f "./Middlewares/ST/ST67W6X_Network_Driver/Api/logging.h"
+echo "Removed ./Middlewares/ST/ST67W6X_Network_Driver/Api/logging.h"
+
+rm -f "./Middlewares/ST/ST67W6X_Network_Driver/Api/logging_levels.h"
+echo "Removed ./Middlewares/ST/ST67W6X_Network_Driver/Api/logging_levels.h"
+
+rm -f "./Middlewares/ST/ST67W6X_Network_Driver/Api/shell.h"
+echo "Removed ./Middlewares/ST/ST67W6X_Network_Driver/Api/shell.h"
+
+rm -f "./Middlewares/ST/ST67W6X_Network_Driver/Api/shell_default_config.h"
+echo "Removed ./Middlewares/ST/ST67W6X_Network_Driver/Api/shell_default_config.h"
+
+
+rm -f "./Middlewares/ST/ST67W6X_Network_Driver/Api/shell_default_config.h"
+echo "Removed ./Middlewares/ST/ST67W6X_Network_Driver/Api/shell_default_config.h"
+
+rm -f "./Appli/Core/Src/sysmem.c"
+echo "Removed ./Appli/Core/Src/sysmem.c"

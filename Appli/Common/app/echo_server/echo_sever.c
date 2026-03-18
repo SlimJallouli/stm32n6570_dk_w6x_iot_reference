@@ -26,8 +26,8 @@
 #include "event_groups.h"
 #include <string.h>
 
-#if defined(ST67W6X)
-#include "w6x_lwip_port.h"
+#if defined(ST67W6X_NCP)
+#include "../../net/W6X_ARCH_T01/w6x_lwip_port.h"
 #else
 #include "lwip/sockets.h"
 #endif

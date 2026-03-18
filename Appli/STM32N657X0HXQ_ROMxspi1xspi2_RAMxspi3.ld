@@ -43,8 +43,8 @@ _sstack = _estack - _Min_Stack_Size;
 /* Memories definition */
 MEMORY
 {
-  ROM    (xrw)    : ORIGIN = 0x70100400,   LENGTH = 511K
-  ROM    (xrw)    : ORIGIN = 0x90200400,   LENGTH = 511K
+  ROM2    (xrw)    : ORIGIN = 0x70100400,   LENGTH = 511K
+  ROM1    (xrw)    : ORIGIN = 0x90200400,   LENGTH = 511K
   RAM    (xrw)    : ORIGIN = 0x34000000,   LENGTH = 2048K
   EXTRAM (rw)     : ORIGIN = 0x80000000,   LENGTH = 0x04000000
 }
@@ -52,15 +52,15 @@ MEMORY
 /* Sections */
 SECTIONS
 {
-  /* The startup code into "RAM" Ram type memory */
+  /* The startup code into "ROM" Rom type memory */
   .isr_vector :
   {
     . = ALIGN(4);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
-  /* The program code and other data into "RAM" Ram type memory */
+  /* The program code and other data into "ROM" Rom type memory */
   .text :
   {
     . = ALIGN(4);
@@ -77,7 +77,7 @@ SECTIONS
 
     . = ALIGN(4);
     _etext = .;        /* define a global symbols at end of code */
-  } >ROM
+  } >ROM1
 
   /* Constant data into "RAM" Ram type memory */
   .rodata :
@@ -86,14 +86,14 @@ SECTIONS
     *(.rodata)         /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
   .ARM.extab   (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
     . = ALIGN(4);
     *(.ARM.extab* .gnu.linkonce.armextab.*)
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
   .ARM   (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
@@ -102,7 +102,7 @@ SECTIONS
     *(.ARM.exidx*)
     __exidx_end = .;
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
   .preinit_array   (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
@@ -111,7 +111,7 @@ SECTIONS
     KEEP (*(.preinit_array*))
     PROVIDE_HIDDEN (__preinit_array_end = .);
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
   .init_array   (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
@@ -121,7 +121,7 @@ SECTIONS
     KEEP (*(.init_array*))
     PROVIDE_HIDDEN (__init_array_end = .);
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
   .fini_array   (READONLY) : /* The READONLY keyword is only supported in GCC11 and later, remove it if using GCC10 or earlier. */
   {
@@ -131,7 +131,7 @@ SECTIONS
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
     . = ALIGN(4);
-  } >ROM
+  } >ROM1
 
   /* Used by the startup to initialize data */
   _sidata = LOADADDR(.data);
@@ -147,7 +147,7 @@ SECTIONS
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
 
-  } >RAM AT> ROM
+  } >RAM AT> ROM1
 
   .noncacheable :
   {
@@ -160,10 +160,12 @@ SECTIONS
 
   .gnu.sgstubs :
   {
+    _sNSCVeneer = .;
     . = ALIGN(4);
     *(.gnu.sgstubs*)   /* Secure Gateway stubs */
     . = ALIGN(4);
-  } >ROM 
+  } >ROM1
+  _eNSCVeneer = .;
 
   /* Uninitialized data section into "RAM" Ram type memory */
   . = ALIGN(4);

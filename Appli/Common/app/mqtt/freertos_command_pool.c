@@ -44,6 +44,9 @@
 #include "FreeRTOS.h"
 #include "semphr.h"
 
+/* MQTT library includes. */
+#include "core_mqtt_config.h"
+
 /* Header include. */
 #include "freertos_command_pool.h"
 

@@ -80,6 +80,8 @@ extern void vTaskSuspendAll( void );
 #define __NAME_ARG__    ( __builtin_strrchr( __BASE_FILE__, '/' ) ? __builtin_strrchr( __BASE_FILE__, '/' ) + 1 : __BASE_FILE__ )
 
 /* Generic logging macros */
+#define LogErrorEx(line, file, ... )  /*vLoggingPrintf( LOG_ERROR, 1, line, file, REMOVE_PARENS( __VA_ARGS__ ) )*/
+
 #define SdkLog( level, ... )    do { vLoggingPrintf( level, __NAME_ARG__, __LINE__, __VA_ARGS__ ); } while( 0 )
 
 #define LogAssert( ... )        do { SdkLog( "ASRT", __VA_ARGS__ ); } while( 0 )

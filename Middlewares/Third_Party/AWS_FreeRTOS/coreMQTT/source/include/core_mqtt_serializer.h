@@ -1,5 +1,5 @@
 /*
- * coreMQTT v2.1.1
+ * coreMQTT v2.3.1
  * Copyright (C) 2022 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -41,18 +41,6 @@
     extern "C" {
 #endif
 /* *INDENT-ON */
-
-/* MQTT_DO_NOT_USE_CUSTOM_CONFIG allows building the MQTT library
- * without a custom config. If a custom config is provided, the
- * MQTT_DO_NOT_USE_CUSTOM_CONFIG macro should not be defined. */
-#ifndef MQTT_DO_NOT_USE_CUSTOM_CONFIG
-    /* Include custom config file before other headers. */
-    #include "core_mqtt_config.h"
-#endif
-
-/* Include config defaults header to get default values of configs not
- * defined in core_mqtt_config.h file. */
-#include "core_mqtt_config_defaults.h"
 
 #include "transport_interface.h"
 

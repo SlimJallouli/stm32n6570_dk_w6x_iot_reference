@@ -20,7 +20,6 @@
  *
  * https://www.FreeRTOS.org
  * https://github.com/FreeRTOS
- *
  */
 
 #ifndef _KVSTORE_CONFIG_H
@@ -28,142 +27,224 @@
 
 #include "kvstore_config_plat.h"
 
+/* -------------------------------- Default Values for Common Attributes -------------------------------- */
+
+/* Default values for attributes. These can be overridden by platform-specific configurations. */
+#ifndef THING_NAME_DFLT
+    #define THING_NAME_DFLT             "" /* Default Thing Name             */
+#endif
+
+#ifndef MQTT_ENDPOINT_DFLT
+    #define MQTT_ENDPOINT_DFLT          "" /* Default MQTT Endpoint          */
+#endif
+
+#ifndef MQTT_PORT_DFLT
+    #define MQTT_PORT_DFLT              8883 /* Default MQTT Port             */
+#endif
+
+#ifndef WIFI_SSID_DFLT
+    #define WIFI_SSID_DFLT              "" /* Default WiFi SSID             */
+#endif
+
+#ifndef WIFI_PASSWORD_DFLT
+    #define WIFI_PASSWORD_DFLT          "" /* Default WiFi Password         */
+#endif
+
+#ifndef WIFI_SECURITY_DFLT
+    #define WIFI_SECURITY_DFLT          "" /* Default WiFi Security         */
+#endif
+
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+    #ifndef THING_GROUP_NAME_DFLT
+        #define THING_GROUP_NAME_DFLT   "" /* Default Thing Group Name      */
+        #define PROVISIONED_DEFAULT     0  /* Default Provisioned State     */
+    #endif
+#endif
+
+#if defined(ST67W6X_NCP)
+    #define MQTT_SECURITY_DFLT          0  /* Default MQTT Security for ST67W6X_NCP */
+#endif
+
+/* -------------------------------- Key Definitions -------------------------------- */
+
+/* Common keys for all platforms */
+#define COMMON_KV_STORE_KEYS                                      \
+    CS_CORE_THING_NAME,          /* Thing Name Key             */ \
+    CS_CORE_MQTT_ENDPOINT,       /* MQTT Endpoint Key          */ \
+    CS_CORE_MQTT_PORT,           /* MQTT Port Key              */ \
+    CS_TIME_HWM_S_1970           /* Time High Watermark Key    */
+
+/* Platform-specific keys */
+#if defined(ST67W6X_NCP)
 typedef enum KvStoreEnum
 {
-    CS_CORE_THING_NAME,
-    CS_CORE_MQTT_ENDPOINT,
-    CS_CORE_MQTT_PORT,
-    CS_WIFI_SSID,
-    CS_WIFI_CREDENTIAL,
-    CS_TIME_HWM_S_1970,
-#if defined(ST67W6X)
-    CS_MQTT_SECURITY,
+    COMMON_KV_STORE_KEYS,        /* Common Keys                */
+    CS_WIFI_SSID,                /* WiFi SSID Key              */
+    CS_WIFI_CREDENTIAL,          /* WiFi Credential Key        */
+    CS_MQTT_SECURITY,            /* MQTT Security Key          */
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+    CS_PROVISIONED,              /* Provisioned State Key      */
+    CS_THING_GROUP_NAME,         /* Thing Group Name Key       */
 #endif
-#if defined(FLEET_PROVISION_DEMO) && !defined(__USE_STSAFE__)
-    CS_PROVISIONED,
-    CS_THING_GROUP_NAME,
-#endif
-    CS_NUM_KEYS
+    CS_NUM_KEYS                  /* Total Number of Keys       */
 } KVStoreKey_t;
 
-/* -------------------------------- Values for common attributes -------------------------------- */
+#elif defined(ETHERNET)
+typedef enum KvStoreEnum
+{
+    COMMON_KV_STORE_KEYS,        /* Common Keys                */
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+    CS_PROVISIONED,              /* Provisioned State Key      */
+    CS_THING_GROUP_NAME,         /* Thing Group Name Key       */
+#endif
+    CS_NUM_KEYS                  /* Total Number of Keys       */
+} KVStoreKey_t;
 
-/* Note: If TEST_AUTOMATION_INTEGRATION == 1 (in ota_config.h), settings below will be forcedly used
- * in runtime. Please set to 0 or "" to skip them if you want to use the value in flash. */
-#if ( TEST_AUTOMATION_INTEGRATION == 1 )
-    #if ( OTA_E2E_TEST_ENABLED == 1 )
+#elif (defined(MXCHIP) || defined(ST67W6X_RCP))
+typedef enum KvStoreEnum
+{
+    COMMON_KV_STORE_KEYS,        /* Common Keys                */
+    CS_WIFI_SSID,                /* WiFi SSID Key              */
+    CS_WIFI_CREDENTIAL,          /* WiFi Credential Key        */
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+    CS_PROVISIONED,              /* Provisioned State Key      */
+    CS_THING_GROUP_NAME,         /* Thing Group Name Key       */
+#endif
+    CS_NUM_KEYS                  /* Total Number of Keys       */
+} KVStoreKey_t;
 
-        #define THING_NAME_DFLT       IOT_THING_NAME
-        #define MQTT_ENDPOINT_DFLT    MQTT_SERVER_ENDPOINT
-        #define MQTT_PORT_DFLT        MQTT_SERVER_PORT
-
-    #elif ( MQTT_TEST_ENABLED == 1 )
-
-        #define THING_NAME_DFLT       MQTT_TEST_CLIENT_IDENTIFIER
-        #define MQTT_ENDPOINT_DFLT    MQTT_SERVER_ENDPOINT
-        #define MQTT_PORT_DFLT        MQTT_SERVER_PORT
-
-    #elif ( TRANSPORT_INTERFACE_TEST_ENABLED == 1 )
-
-        #define MQTT_ENDPOINT_DFLT    ECHO_SERVER_ENDPOINT
-        #define MQTT_PORT_DFLT        ECHO_SERVER_PORT
-
-    #elif ( DEVICE_ADVISOR_TEST_ENABLED == 1 )
-
-        #define THING_NAME_DFLT       IOT_THING_NAME
-        #define MQTT_ENDPOINT_DFLT    MQTT_SERVER_ENDPOINT
-        #define MQTT_PORT_DFLT        MQTT_SERVER_PORT
-
-    #endif /* ( OTA_E2E_TEST_ENABLED == 1 ) || ( MQTT_TEST_ENABLED == 1 ) */
-#endif /* if ( TEST_AUTOMATION_INTEGRATION == 1 ) */
-
-#if !defined( THING_NAME_DFLT )
-    #define THING_NAME_DFLT    ""
-#endif /* !defined ( THING_NAME_DFLT ) */
-
-#if !defined( MQTT_ENDPOINT_DFLT )
-    #define MQTT_ENDPOINT_DFLT    ""
-#endif /* !defined ( MQTT_ENDPOINT_DFLT ) */
-
-#if !defined( MQTT_PORT_DFLT )
-    #define MQTT_PORT_DFLT    8883
-#endif /* !defined ( MQTT_PORT_DFLT ) */
-
-#if !defined( WIFI_SSID_DFLT )
-    #define WIFI_SSID_DFLT    ""
-#endif /* !defined ( WIFI_SSID_DFLT ) */
-
-#if !defined( WIFI_PASSWORD_DFLT )
-    #define WIFI_PASSWORD_DFLT    ""
-#endif /* !defined ( WIFI_PASSWORD_DFLT ) */
-
-#if !defined( WIFI_SECURITY_DFLT )
-    #define WIFI_SECURITY_DFLT    ""
-#endif /* !defined ( WIFI_SECURITY_DFLT ) */
-
-#if defined(FLEET_PROVISION_DEMO)  && !defined(__USE_STSAFE__)
-#if !defined( THING_GROUP_NAME_DFLT )
-    #define THING_GROUP_NAME_DFLT    ""
-    #define PROVISIONED_DEFAULT      0
-#endif /* !defined ( THING_GROUP_NAME_DFLT ) */
 #endif
 
-#if defined(ST67W6X)
-#define MQTT_SECURITY_DFLT 0
-#endif
-/* -------------------------------- Values for common attributes -------------------------------- */
+/* -------------------------------- Key-Value Store Strings -------------------------------- */
 
-/* Array to map between strings and KVStoreKey_t IDs */
-#if defined(FLEET_PROVISION_DEMO)  && !defined(__USE_STSAFE__)
-#define KV_STORE_STRINGS   \
-    {                      \
-        "thing_name",      \
-        "mqtt_endpoint",   \
-        "mqtt_port",       \
-        "wifi_ssid",       \
-        "wifi_credential", \
-        "time_hwm",        \
-        "mqtt_security",   \
-        "provision_state", \
-		    "group_name"       \
+/* Common strings for all platforms */
+#define COMMON_KV_STORE_STRINGS                                   \
+    "thing_name",               /* Thing Name String           */ \
+    "mqtt_endpoint",            /* MQTT Endpoint String        */ \
+    "mqtt_port",                /* MQTT Port                   */ \
+    "time_hwm"                  /* Time High Watermark         */
+
+/* Platform-specific strings */
+#if defined(ST67W6X_NCP)
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+#define KV_STORE_STRINGS                                          \
+    {                                                             \
+        COMMON_KV_STORE_STRINGS,                                  \
+        "wifi_ssid",            /* WiFi SSID String            */ \
+        "wifi_credential",      /* WiFi Credential String      */ \
+        "mqtt_security",        /* MQTT Security String        */ \
+        "provision_state",      /* Provisioned State           */ \
+        "group_name"            /* Thing Group Name String     */ \
     }
 #else
-#define KV_STORE_STRINGS   \
-    {                      \
-        "thing_name",      \
-        "mqtt_endpoint",   \
-        "mqtt_port",       \
-        "wifi_ssid",       \
-        "wifi_credential", \
-        "time_hwm",        \
-		"mqtt_security"    \
+#define KV_STORE_STRINGS                                          \
+    {                                                             \
+        COMMON_KV_STORE_STRINGS,                                  \
+        "wifi_ssid",            /* WiFi SSID String            */ \
+        "wifi_credential",      /* WiFi Credential String      */ \
+        "mqtt_security"         /* MQTT Security String        */ \
+    }
+#endif
+#elif defined(ETHERNET)
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+#define KV_STORE_STRINGS                                          \
+    {                                                             \
+        COMMON_KV_STORE_STRINGS,                                  \
+        "provision_state",      /* Provisioned State           */ \
+        "group_name"            /* Thing Group Name String     */ \
+    }
+#else
+#define KV_STORE_STRINGS                                          \
+    {                                                             \
+        COMMON_KV_STORE_STRINGS                                   \
     }
 #endif
 
-#if defined(FLEET_PROVISION_DEMO)  && !defined(__USE_STSAFE__)
-#define KV_STORE_DEFAULTS                                                          \
-    {                                                                              \
-        KV_DFLT( KV_TYPE_STRING, THING_NAME_DFLT      ),          /* CS_CORE_THING_NAME             */ \
-        KV_DFLT( KV_TYPE_STRING, MQTT_ENDPOINT_DFLT   ),          /* CS_CORE_MQTT_ENDPOINT          */ \
-        KV_DFLT( KV_TYPE_UINT32, MQTT_PORT_DFLT       ),          /* CS_CORE_MQTT_PORT              */ \
-        KV_DFLT( KV_TYPE_STRING, WIFI_SSID_DFLT       ),          /* CS_WIFI_SSID                   */ \
-        KV_DFLT( KV_TYPE_STRING, WIFI_PASSWORD_DFLT   ),          /* CS_WIFI_CREDENTIAL             */ \
-        KV_DFLT( KV_TYPE_UINT32, 0                    ),          /* CS_TIME_HWM_S_1970             */ \
-		KV_DFLT( KV_TYPE_UINT32, MQTT_SECURITY_DFLT   ),          /* CS_MQTT_SECURITY               */ \
-		KV_DFLT( KV_TYPE_UINT32, PROVISIONED_DEFAULT  ),          /* CS_PROVISIONED                 */ \
-		KV_DFLT( KV_TYPE_STRING, THING_GROUP_NAME_DFLT),          /* CS_THING_GROUP_NAME            */ \
+#elif (defined(MXCHIP) || defined(ST67W6X_RCP))
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+#define KV_STORE_STRINGS                                          \
+    {                                                             \
+        COMMON_KV_STORE_STRINGS,                                  \
+        "wifi_ssid",            /* WiFi SSID String            */ \
+        "wifi_credential",      /* WiFi Credential String      */ \
+        "provision_state",      /* Provisioned State           */ \
+        "group_name"            /* Thing Group Name String     */ \
     }
 #else
-#define KV_STORE_DEFAULTS                                                          \
-    {                                                                              \
-        KV_DFLT( KV_TYPE_STRING, THING_NAME_DFLT    ),            /* CS_CORE_THING_NAME             */ \
-        KV_DFLT( KV_TYPE_STRING, MQTT_ENDPOINT_DFLT ),            /* CS_CORE_MQTT_ENDPOINT          */ \
-        KV_DFLT( KV_TYPE_UINT32, MQTT_PORT_DFLT     ),            /* CS_CORE_MQTT_PORT              */ \
-        KV_DFLT( KV_TYPE_STRING, WIFI_SSID_DFLT     ),            /* CS_WIFI_SSID                   */ \
-        KV_DFLT( KV_TYPE_STRING, WIFI_PASSWORD_DFLT ),            /* CS_WIFI_CREDENTIAL             */ \
-        KV_DFLT( KV_TYPE_UINT32, 0                  ),            /* CS_TIME_HWM_S_1970             */ \
-		KV_DFLT( KV_TYPE_UINT32, MQTT_SECURITY_DFLT ),            /* CS_MQTT_SECURITY               */ \
+#define KV_STORE_STRINGS                                          \
+    {                                                             \
+        COMMON_KV_STORE_STRINGS,                                  \
+        "wifi_ssid",            /* WiFi SSID String            */ \
+        "wifi_credential"       /* WiFi Credential String      */ \
     }
+#endif
+#endif
+
+/* -------------------------------- Key-Value Store Defaults -------------------------------- */
+
+/* Common defaults for all platforms */
+#define COMMON_KV_STORE_DEFAULTS                                                           \
+    KV_DFLT(KV_TYPE_STRING, THING_NAME_DFLT),            /* Default Thing Name          */ \
+    KV_DFLT(KV_TYPE_STRING, MQTT_ENDPOINT_DFLT),         /* Default MQTT Endpoint       */ \
+    KV_DFLT(KV_TYPE_UINT32, MQTT_PORT_DFLT),             /* Default MQTT Port           */ \
+    KV_DFLT(KV_TYPE_UINT32, 0)                           /* Default Time High Watermark */
+
+/* Defaults for ST67W6X_NCP platform */
+#if defined(ST67W6X_NCP)
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+#define KV_STORE_DEFAULTS                                                                  \
+    {                                                                                      \
+        COMMON_KV_STORE_DEFAULTS,                                                          \
+        KV_DFLT(KV_TYPE_STRING, WIFI_SSID_DFLT),         /* Default WiFi SSID         */   \
+        KV_DFLT(KV_TYPE_STRING, WIFI_PASSWORD_DFLT),     /* Default WiFi Password     */   \
+        KV_DFLT(KV_TYPE_UINT32, MQTT_SECURITY_DFLT),     /* Default MQTT Security     */   \
+        KV_DFLT(KV_TYPE_UINT32, PROVISIONED_DEFAULT),    /* Default Provisioned State */   \
+        KV_DFLT(KV_TYPE_STRING, THING_GROUP_NAME_DFLT)   /* Default Thing Group Name  */   \
+    }
+#else
+#define KV_STORE_DEFAULTS                                                                  \
+    {                                                                                      \
+        COMMON_KV_STORE_DEFAULTS,                                                          \
+        KV_DFLT(KV_TYPE_STRING, WIFI_SSID_DFLT),         /* Default WiFi SSID         */   \
+        KV_DFLT(KV_TYPE_STRING, WIFI_PASSWORD_DFLT),     /* Default WiFi Password     */   \
+        KV_DFLT(KV_TYPE_UINT32, MQTT_SECURITY_DFLT)      /* Default MQTT Security     */   \
+    }
+#endif
+/* Defaults for ETHERNET platform */
+#elif defined(ETHERNET)
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+#define KV_STORE_DEFAULTS                                                                  \
+    {                                                                                      \
+        COMMON_KV_STORE_DEFAULTS,                                                          \
+        KV_DFLT(KV_TYPE_UINT32, PROVISIONED_DEFAULT),    /* Default Provisioned State */   \
+        KV_DFLT(KV_TYPE_STRING, THING_GROUP_NAME_DFLT)   /* Default Thing Group Name  */   \
+    }
+#else
+#define KV_STORE_DEFAULTS                                                                  \
+    {                                                                                      \
+        COMMON_KV_STORE_DEFAULTS                                                           \
+    }
+#endif
+
+/* Defaults for MXCHIP platform */
+#elif (defined(MXCHIP) || defined(ST67W6X_RCP))
+#if defined(DEMO_AWS_FLEET_PROVISION) && !defined(__USE_STSAFE__)
+#define KV_STORE_DEFAULTS                                                                  \
+    {                                                                                      \
+        COMMON_KV_STORE_DEFAULTS,                                                          \
+        KV_DFLT(KV_TYPE_STRING, WIFI_SSID_DFLT),         /* Default WiFi SSID         */   \
+        KV_DFLT(KV_TYPE_STRING, WIFI_PASSWORD_DFLT),     /* Default WiFi Password     */   \
+        KV_DFLT(KV_TYPE_UINT32, PROVISIONED_DEFAULT),    /* Default Provisioned State */   \
+        KV_DFLT(KV_TYPE_STRING, THING_GROUP_NAME_DFLT)   /* Default Thing Group Name  */   \
+    }
+#else
+#define KV_STORE_DEFAULTS                                                                  \
+    {                                                                                      \
+        COMMON_KV_STORE_DEFAULTS,                                                          \
+        KV_DFLT(KV_TYPE_STRING, WIFI_SSID_DFLT),         /* Default WiFi SSID         */   \
+        KV_DFLT(KV_TYPE_STRING, WIFI_PASSWORD_DFLT)      /* Default WiFi Password     */   \
+    }
+#endif
 #endif
 
 #endif /* _KVSTORE_CONFIG_H */

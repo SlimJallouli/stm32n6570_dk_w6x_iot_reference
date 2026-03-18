@@ -337,10 +337,11 @@ void Task_CLI( void * pvParameters )
   LogInfo("%s started\n", __func__);
 
     ( void ) pvParameters;
-
+#if defined(ST67W6X_NCP)
     FreeRTOS_CLIRegisterCommand( &xCommandDef_w6x_fs );
-    FreeRTOS_CLIRegisterCommand( &xCommandDef_conf );
-    FreeRTOS_CLIRegisterCommand( &xCommandDef_pki );
+#endif
+//    FreeRTOS_CLIRegisterCommand( &xCommandDef_conf );
+//    FreeRTOS_CLIRegisterCommand( &xCommandDef_pki );
     FreeRTOS_CLIRegisterCommand( &xCommandDef_ps );
     FreeRTOS_CLIRegisterCommand( &xCommandDef_kill );
     FreeRTOS_CLIRegisterCommand( &xCommandDef_killAll );

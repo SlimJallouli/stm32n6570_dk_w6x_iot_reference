@@ -53,6 +53,10 @@ extern "C" {
 #include "psram/stm32_psram_driver_type.h"
 #endif /* DRIVER_PSRAM_ENABLED */
 
+#if EXTMEM_DRIVER_CUSTOM == 1
+#include "custom/stm32_custom_driver_type.h"
+#endif /* DRIVER_USER_ENABLED */
+
 #if EXTMEM_DRIVER_USER == 1
 #include "user/stm32_user_driver_type.h"
 #endif /* DRIVER_USER_ENABLED */
@@ -78,9 +82,9 @@ extern "C" {
 /** @defgroup EXTMEM_Manufacturer_IDs EXTMEM JEDEC Manufacturer IDs
   * @{
   */
-#define EXTMEM_MANFACTURER_MACRONIX              (0xC2U)   /*!< Macronix          */
-#define EXTMEM_MANFACTURER_GIGADEVICE            (0xC8U)   /*!< GigaDevices       */
-#define EXTMEM_MANFACTURER_ISSI                  (0x9DU)   /*!< ISSI              */
+#define EXTMEM_MANUFACTURER_MACRONIX    (0xC2U)   /*!< JEDEC ID for Macronix */
+#define EXTMEM_MANUFACTURER_GIGADEVICE  (0xC8U)   /*!< JEDEC ID for GigaDevice */
+#define EXTMEM_MANUFACTURER_ISSI        (0x9DU)   /*!< JEDEC ID for ISSI */
 /**
   * @}
   */
@@ -92,7 +96,11 @@ extern "C" {
 #define EXTMEM_READ_JEDEC_ID_SIZE                       0x04U
 
 #define EXTMEM_READ_SFDP_COMMAND                        0x5AU
-#define EXTMEM_READ_SFDP_NB_DUMMY_CYCLES_DEFAULT        0x08U
+#define EXTMEM_READ_SFDP_NB_DUMMY_CYCLES_DEFAULT        8U
+#define EXTMEM_READ_SFDP_NB_DUMMY_CYCLES_OPI            20U
+
+#define EXTMEM_FAST_READ_NB_DUMMY_CYCLES_DEFAULT        8U
+
 /**
   * @}
   */
@@ -102,7 +110,7 @@ extern "C" {
   */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup EXTMEM_Exported_Typedef External Memory Exported Type definition
+/** @defgroup EXTMEM_Exported_TypeDefinitions External Memory Exported Type Definitions
   * @{
   */
 
@@ -111,22 +119,25 @@ extern "C" {
   */
 typedef struct
 {
-  EXTMEM_TypeTypeDef MemType;               /*!< Memory driver type */
-  void *Handle;                             /*!< HAL handle */
-  EXTMEM_LinkConfig_TypeDef ConfigType;     /*!< Physical link config */
+  EXTMEM_TypeTypeDef MemType;               /*!< Specifies the memory driver type */
+  void *Handle;                             /*!< Pointer to HAL handle */
+  EXTMEM_LinkConfig_TypeDef ConfigType;     /*!< Specifies the physical link configuration */
   union
   {
 #if EXTMEM_DRIVER_NOR_SFDP == 1
-    EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef  NorSfdpObject;  /*!< NorSfdp object */
+    EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef  NorSfdpObject;  /*!< Object for NOR SFDP driver */
 #endif /* EXTMEM_DRIVER_NOR_SFDP == 1 */
 #if EXTMEM_DRIVER_SDCARD == 1
-    EXTMEM_DRIVER_SDCARD_ObjectTypeDef    SdCardObject;   /*!< SdCard object */
+    EXTMEM_DRIVER_SDCARD_ObjectTypeDef    SdCardObject;   /*!< Object for SD Card driver */
 #endif /* EXTMEM_DRIVER_SDCARD == 1 */
 #if EXTMEM_DRIVER_PSRAM == 1
-    EXTMEM_DRIVER_PSRAM_ObjectTypeDef     PsramObject;    /*!< Psram object */
+    EXTMEM_DRIVER_PSRAM_ObjectTypeDef     PsramObject;    /*!< Object for PSRAM driver */
 #endif /* EXTMEM_DRIVER_PSRAM == 1 */
+#if EXTMEM_DRIVER_CUSTOM == 1
+    EXTMEM_DRIVER_CUSTOM_ObjectTypeDef    CustomObject;   /*!< Object for Custom driver */
+#endif /* EXTMEM_DRIVER_CUSTOM == 1 */
 #if EXTMEM_DRIVER_USER == 1
-    EXTMEM_DRIVER_USER_ObjectTypeDef      UserObject;     /*!< User object */
+    EXTMEM_DRIVER_USER_ObjectTypeDef      UserObject;     /*!< Object for User driver */
 #endif /* EXTMEM_DRIVER_USER == 1 */
   };
 } EXTMEM_DefinitionTypeDef;

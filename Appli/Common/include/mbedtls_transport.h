@@ -30,8 +30,8 @@
 #include "mbedtls_error_utils.h"
 #include "transport_interface.h"
 
-#if defined(ST67W6X)
-#include "w6x_lwip_port.h"
+#if defined(ST67W6X_NCP)
+#include "../net/W6X_ARCH_T01/w6x_lwip_port.h"
 
 #else
 /* socket definitions  */

@@ -34,5 +34,13 @@
 /* ARM.mbedTLS.3.1.1 */
 #define RTE_PSA_API_CRYPTO
 #define RTE_Security_mbedTLS /* Security mbed TLS */
+/* lwIP.lwIP.2.3.0 */
+<!-- the following content goes into file 'RTE_Components.h' -->
+#define RTE_Network_Core /* Network Core */
+#define RTE_Network_IPv4 /* Network IPv4 Stack */
+#define RTE_Network_RTOS /* Network RTOS */
+#define RTE_Network_FreeRTOS /* Network FreeRTOS */
+#define RTE_Network_Interface_Ethernet /* Network Interface Ethernet */
+#define RTE_Network_API /* Network API */
 
 #endif /* __RTE_COMPONENTS_H__ */

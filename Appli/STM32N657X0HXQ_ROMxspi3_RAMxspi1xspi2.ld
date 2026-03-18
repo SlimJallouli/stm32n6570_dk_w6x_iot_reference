@@ -45,14 +45,14 @@ MEMORY
 {
   ROM    (xrw)    : ORIGIN = 0x80100400,   LENGTH = 511K
   RAM    (xrw)    : ORIGIN = 0x34000000,   LENGTH = 2048K
-  EXTRAM (rw)     : ORIGIN = 0x74000000,   LENGTH = 0x04000000
-  EXTRAM (rw)     : ORIGIN = 0x90000000,   LENGTH = 0x04000000    
+  EXTRAM2 (rw)     : ORIGIN = 0x74000000,   LENGTH = 0x04000000
+  EXTRAM1 (rw)     : ORIGIN = 0x90000000,   LENGTH = 0x04000000    
 }
 
 /* Sections */
 SECTIONS
 {
-  /* The startup code into "RAM" Ram type memory */
+  /* The startup code into "ROM" Rom type memory */
   .isr_vector :
   {
     . = ALIGN(4);
@@ -60,7 +60,7 @@ SECTIONS
     . = ALIGN(4);
   } >ROM
 
-  /* The program code and other data into "RAM" Ram type memory */
+  /* The program code and other data into "ROM" Rom type memory */
   .text :
   {
     . = ALIGN(4);
@@ -79,7 +79,7 @@ SECTIONS
     _etext = .;        /* define a global symbols at end of code */
   } >ROM
 
-  /* Constant data into "RAM" Ram type memory */
+  /* Constant data into "ROM" Rom type memory */
   .rodata :
   {
     . = ALIGN(4);
@@ -160,10 +160,12 @@ SECTIONS
 
   .gnu.sgstubs :
   {
+    _sNSCVeneer = .;
     . = ALIGN(4);
     *(.gnu.sgstubs*)   /* Secure Gateway stubs */
     . = ALIGN(4);
-  } >ROM 
+  } >ROM
+  _eNSCVeneer = .;
 
   /* Uninitialized data section into "RAM" Ram type memory */
   . = ALIGN(4);

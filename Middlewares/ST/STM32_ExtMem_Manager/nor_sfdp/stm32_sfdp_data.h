@@ -21,7 +21,7 @@
 #define __STM32_SFDP_DATA_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -40,8 +40,8 @@
 /* Exported constants --------------------------------------------------------*/
 
 /**
- * @brief Maximum number of SFDP parameter in SFDP table
- */
+  * @brief Maximum number of SFDP parameter in SFDP table
+  */
 #define SFDP_MAX_NB_OF_PARAM                                10U
 
 /* Exported types ------------------------------------------------------------*/
@@ -52,42 +52,42 @@
   */
 
 /**
- * @brief SFDP parameter table ID
- */
+  * @brief SFDP parameter table ID
+  */
 typedef enum
 {
-  SFDP_PARAMID_UNKNOWN                                     = 0x00000u,
-  SFDP_PARAMID_VENDOR                                      = 0x00001u,
-  SFDP_PARAMID_FUNCTION_VENDOR                             = 0x00002u,
-  SFDP_PARAMID_FUNCTION_JEDEC                              = 0x00004u,
-  SFDP_PARAMID_BASIC_SPIPROTOCOL                           = 0x00008u,
-  SFDP_PARAMID_SECTORMAP                                   = 0x00010u,
-  SFDP_PARAMID_RPMC                                        = 0x00020u,
-  SFDP_PARAMID_4BYTE_ADDRESS_INSTRUCTION                   = 0x00040u,
-  SFDP_PARAMID_XSPI_V1_0                                   = 0x00080u,
-  SFDP_PARAMID_XSPI_V2_0                                   = 0x00100u,
-  SFDP_PARAMID_STATUS_CONTROL_CONFIG_REGISTER_MAP          = 0x00200u,
-  SFDP_PARAMID_STATUS_CONTROL_CONFIG_REGISTER_MAP_MULTICHIP= 0x00400u,
-  SFDP_PARAMID_STATUS_CONTROL_CONFIG_XSPI_V2_0             = 0x00800u,
-  SFDP_PARAMID_OCTAL_DDR                                   = 0x01000u,
-  SFDP_PARAMID_MSPT                                        = 0x02000u,
-  SFDP_PARAMID_X4QUAD_DS                                   = 0x04000u,
-  SFDP_PARAMID_QUAD_DDR                                    = 0x08000u,
-  SFDP_PARAMID_SECURE_PACKET_READ_WRITE                    = 0x10000u,
-  SFDP_PARAMID_RESERVED                                    = 0x20000u
+  SFDP_PARAMID_UNKNOWN                                      = 0x00000U,
+  SFDP_PARAMID_VENDOR                                       = 0x00001U,
+  SFDP_PARAMID_FUNCTION_VENDOR                              = 0x00002U,
+  SFDP_PARAMID_FUNCTION_JEDEC                               = 0x00004U,
+  SFDP_PARAMID_BASIC_SPIPROTOCOL                            = 0x00008U,
+  SFDP_PARAMID_SECTORMAP                                    = 0x00010U,
+  SFDP_PARAMID_RPMC                                         = 0x00020U,
+  SFDP_PARAMID_4BYTE_ADDRESS_INSTRUCTION                    = 0x00040U,
+  SFDP_PARAMID_XSPI_V1_0                                    = 0x00080U,
+  SFDP_PARAMID_XSPI_V2_0                                    = 0x00100U,
+  SFDP_PARAMID_STATUS_CONTROL_CONFIG_REGISTER_MAP           = 0x00200U,
+  SFDP_PARAMID_STATUS_CONTROL_CONFIG_REGISTER_MAP_MULTICHIP = 0x00400U,
+  SFDP_PARAMID_STATUS_CONTROL_CONFIG_XSPI_V2_0              = 0x00800U,
+  SFDP_PARAMID_OCTAL_DDR                                    = 0x01000U,
+  SFDP_PARAMID_MSPT                                         = 0x02000U,
+  SFDP_PARAMID_X4QUAD_DS                                    = 0x04000U,
+  SFDP_PARAMID_QUAD_DDR                                     = 0x08000U,
+  SFDP_PARAMID_SECURE_PACKET_READ_WRITE                     = 0x10000U,
+  SFDP_PARAMID_RESERVED                                     = 0x20000U
 } SFDP_ParamID_TypeDef;
 
 /**
- * @brief SFDP status typedef
- */
+  * @brief SFDP status typedef
+  */
 typedef enum
 {
-  EXTMEM_SFDP_OK,                            /*!< status OK */
+  EXTMEM_SFDP_OK,                            /*!< Status OK */
   EXTMEM_SFDP_ERROR_PARAM,
   EXTMEM_SFDP_ERROR_NOREADFUNCTION,
   EXTMEM_SFDP_ERROR_SFDPREAD,
-  EXTMEM_SFDP_ERROR_SIGNATURE,               /*!< the signature is invalid */
-  EXTMEM_SFDP_ERROR_SIGNATUREMTYPE,          /*!< the signature is invalid due to wrong memory type */
+  EXTMEM_SFDP_ERROR_SIGNATURE,               /*!< Signature is invalid */
+  EXTMEM_SFDP_ERROR_SIGNATUREMTYPE,          /*!< Signature is invalid due to wrong memory type */
   EXTMEM_SFDP_ERROR_PARAMTABLE_NOTFOUND,
   EXTMEM_SFDP_ERROR_NO_PARAMTABLE_BASIC,
   EXTMEM_SFDP_ERROR_NO_32BITADDRESSING,
@@ -101,15 +101,15 @@ typedef enum
 } SFDP_StatusTypeDef;
 
 /**
- * @brief SFDP header
- */
+  * @brief SFDP header
+  */
 typedef struct
 {
-  uint32_t  Signature;       /*!< signature value */
-  uint8_t  Minor_revision;   /*!< minor revision */
-  uint8_t  Major_revision;   /*!< major revision */
-  uint8_t  param_number;     /*!< number of param */
-  uint8_t  AccessProtocol;   /*!< access protocol */
+  uint32_t Signature;        /*!< Signature value */
+  uint8_t  Minor_revision;   /*!< Minor revision */
+  uint8_t  Major_revision;   /*!< Major revision */
+  uint8_t  param_number;     /*!< Number of parameters */
+  uint8_t  AccessProtocol;   /*!< Access protocol type */
 } SFDP_HeaderTypeDef;
 
 /**
@@ -121,53 +121,15 @@ typedef struct
   * @{
   */
 
- /**
- * @brief This function gets the SFDP header
- * @param Object memory instance object descriptor
- * @return @ref SFDP_StatusTypeDef
- **/
 SFDP_StatusTypeDef SFDP_GetHeader(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *Object,
                                   SFDP_HeaderTypeDef *sfdp_header);
-
- /**
- * @brief This function reads the SFDP header for current configuration
-          and adjusts the memory type if required
- * @param Object memory instance object descriptor
- * @return @ref SFDP_StatusTypeDef
- **/
 SFDP_StatusTypeDef SFDP_ReadHeader(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *Object,
                                    SFDP_HeaderTypeDef *sfdp_header);
-
-/**
- * @brief This function collects all the SFDP information
- * @param Object memory instance object descriptor
- * @return @ref SFDP_StatusTypeDef
- */
 SFDP_StatusTypeDef SFDP_CollectData(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *Object);
-
-/**
- * @brief This function resets the memory
- * @param Object memory instance object descriptor
- * @return @ref SFDP_StatusTypeDef
- */
 SFDP_StatusTypeDef SFDP_MemoryReset(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *Object);
-
-/**
- * @brief This function builds the driver info
- * @param Object memory instance object descriptor
- * @param FreqUpdated set to 1 if the freqence is updated
- * @return @ref SFDP_StatusTypeDef
- */
 SFDP_StatusTypeDef SFDP_BuildGenericDriver(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *Object, uint8_t *FreqUpdated);
-
-/**
- * @brief This function checks the busy flag
- *
- * @param SFDPObject memory Object
- * @param timeout timeout value
- * @return @ref EXTMEM_DRIVER_NOR_SFDP_StatusTypeDef
- **/
-EXTMEM_DRIVER_NOR_SFDP_StatusTypeDef driver_check_FlagBUSY(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *SFDPObject, uint32_t Timeout);
+EXTMEM_DRIVER_NOR_SFDP_StatusTypeDef driver_check_FlagBUSY(EXTMEM_DRIVER_NOR_SFDP_ObjectTypeDef *SFDPObject,
+                                                           uint32_t Timeout);
 
 
 /**

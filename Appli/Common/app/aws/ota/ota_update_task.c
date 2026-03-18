@@ -1091,7 +1091,7 @@ static OtaMqttStatus_t prvMQTTPublish( const char * const pacTopic,
                                        uint16_t topicLen,
                                        const char * pMsg,
                                        uint32_t msgSize,
-                                       uint8_t qos )
+                                       uint8_t qos)
 {
     OtaMqttStatus_t otaRet = OtaMqttSuccess;
     BaseType_t result;
@@ -1107,7 +1107,6 @@ static OtaMqttStatus_t prvMQTTPublish( const char * const pacTopic,
     publishInfo.qos = qos;
     publishInfo.pPayload = pMsg;
     publishInfo.payloadLength = msgSize;
-
 
     xTaskNotifyStateClear( NULL );
 
@@ -1476,6 +1475,7 @@ void vOTAUpdateTask( void * pvParam )
             }
 
             vTaskDelay( pdMS_TO_TICKS( otaexampleTASK_DELAY_MS ) );
+
         } while( OTA_GetState() != OtaAgentStateStopped );
     }
 

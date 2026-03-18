@@ -46,6 +46,7 @@
 #include "mqtt_metrics.h"
 
 /* MQTT library includes. */
+#include "core_mqtt_config.h"
 #include "core_mqtt.h"
 
 #include "core_mqtt_serializer.h"
@@ -62,10 +63,10 @@
 
 /* Subscription manager header include. */
 #include "subscription_manager.h"
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
 #include "mbedtls_transport.h"
 #else
-#include "w6x_transport.h"
+#include "../../net/W6X_ARCH_T01/w6x_transport.h"
 #endif
 #include "sys_evt.h"
 
@@ -860,7 +861,7 @@ static MQTTStatus_t prvConfigureAgentTaskCtx( MQTTAgentTaskCtx_t * pxCtx,
 
         /* Setup transport interface */
         pxCtx->xTransport.pNetworkContext = pxNetworkContext;
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         pxCtx->xTransport.send = mbedtls_transport_send;
         pxCtx->xTransport.recv = mbedtls_transport_recv;
 #endif
@@ -868,8 +869,35 @@ static MQTTStatus_t prvConfigureAgentTaskCtx( MQTTAgentTaskCtx_t * pxCtx,
         /* Always start the initial connection with a clean session */
         pxCtx->xConnectInfo.cleanSession = true;
         pxCtx->xConnectInfo.keepAliveSeconds = KEEP_ALIVE_INTERVAL_S;
-        pxCtx->xConnectInfo.pUserName = AWS_IOT_METRICS_STRING;
-        pxCtx->xConnectInfo.userNameLength = AWS_IOT_METRICS_STRING_LENGTH;
+
+#if !defined(ST67W6X_NCP)
+        char * pucMqttEndpoint = NULL;
+        size_t uxMqttEndpointLen = -1;
+
+        pucMqttEndpoint = KVStore_getStringHeap( CS_CORE_MQTT_ENDPOINT, &uxMqttEndpointLen );
+
+        if ((uxMqttEndpointLen>0) && (uxMqttEndpointLen < 0xffffffff))
+        {
+          /* If we are connecting to AWS */
+          if (strstr(pucMqttEndpoint, "amazonaws") != NULL)
+          {
+            pxCtx->xConnectInfo.pUserName = AWS_IOT_METRICS_STRING;
+            pxCtx->xConnectInfo.userNameLength = AWS_IOT_METRICS_STRING_LENGTH;
+          }
+        }
+        else
+#endif
+        {
+          pxCtx->xConnectInfo.pUserName = NULL;
+          pxCtx->xConnectInfo.userNameLength = 0U;
+        }
+
+#if !defined(ST67W6X_NCP)
+        if(pucMqttEndpoint != NULL)
+        {
+           vPortFree(pucMqttEndpoint);
+        }
+#endif
         pxCtx->xConnectInfo.pPassword = NULL;
         pxCtx->xConnectInfo.passwordLength = 0U;
 
@@ -962,11 +990,18 @@ MQTTAgentHandle_t xGetMqttAgentHandle( void )
 void vMQTTAgentTask( void * pvParameters )
 {
     MQTTStatus_t xMQTTStatus = MQTTSuccess;
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
     TlsTransportStatus_t xTlsStatus = TLS_TRANSPORT_CONNECT_FAILURE;
 #else
-    W6X_Status_t xW6xStatus;
+    W6X_Status_t xW6xStatus = W6X_STATUS_ERROR;
 #endif
+
+    char *pThingName = NULL;
+    size_t uxThingNameLen = 0;
+
+    MQTTPublishInfo_t * pWillInfo = NULL;
+    char *pcWillTopicBuf;
+    pcWillTopicBuf = pvPortMalloc(64);
 
     BaseType_t xExitFlag = pdFALSE;
 
@@ -979,7 +1014,7 @@ void vMQTTAgentTask( void * pvParameters )
     PkiObject_t xClientCertificate;
     PkiObject_t pxRootCaChain[ 1 ];
 
-#if !defined(__USE_STSAFE__) && defined(FLEET_PROVISION_DEMO)
+#if !defined(__USE_STSAFE__) && defined(DEMO_AWS_FLEET_PROVISION)
     BaseType_t xSuccess = pdTRUE;
 
     uint32_t provisioned = KVStore_getUInt32( CS_PROVISIONED, &( xSuccess ) );
@@ -1014,7 +1049,7 @@ void vMQTTAgentTask( void * pvParameters )
 
     if( xMQTTStatus == MQTTSuccess )
     {
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         pxNetworkContext = mbedtls_transport_allocate();
 
         if( pxNetworkContext == NULL )
@@ -1036,7 +1071,7 @@ void vMQTTAgentTask( void * pvParameters )
 
     if( xMQTTStatus == MQTTSuccess )
     {
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         xTlsStatus = mbedtls_transport_configure( pxNetworkContext,
                                                   pcAlpnProtocols,
                                                   &xPrivateKey,
@@ -1108,7 +1143,7 @@ void vMQTTAgentTask( void * pvParameters )
             xDefaultInstanceHandle = &( pxCtx->xAgentContext );
         }
     }
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
     if( xMQTTStatus == MQTTSuccess )
     {
         xTlsStatus = mbedtls_transport_setrecvcallback( pxNetworkContext,
@@ -1138,13 +1173,13 @@ void vMQTTAgentTask( void * pvParameters )
                                            RETRY_BACKOFF_BASE,
                                            RETRY_MAX_BACKOFF_DELAY,
                                            BACKOFF_ALGORITHM_RETRY_FOREVER );
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         xTlsStatus = TLS_TRANSPORT_UNKNOWN_ERROR;
 #else
         xW6xStatus = W6X_STATUS_ERROR;
 #endif
         /* Connect a socket to the broker with retries */
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         while( xTlsStatus != TLS_TRANSPORT_SUCCESS && xBackoffAlgStatus == BackoffAlgorithmSuccess )
 #else
         while( xW6xStatus != W6X_STATUS_OK && xBackoffAlgStatus == BackoffAlgorithmSuccess )
@@ -1159,7 +1194,7 @@ void vMQTTAgentTask( void * pvParameters )
 
             LogInfo( "Attempting a TLS connection to %s:%d.",
                      pxCtx->pcMqttEndpoint, pxCtx->ulMqttPort );
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
             xTlsStatus = mbedtls_transport_connect( pxNetworkContext,
                                                     pxCtx->pcMqttEndpoint,
                                                     ( uint16_t ) pxCtx->ulMqttPort,
@@ -1170,7 +1205,7 @@ void vMQTTAgentTask( void * pvParameters )
                 ( uint16_t ) pxCtx->ulMqttPort,
                 0, 0 );
 #endif
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
             if( xTlsStatus != TLS_TRANSPORT_SUCCESS )
 #else
             if(xW6xStatus != W6X_STATUS_OK)
@@ -1196,7 +1231,7 @@ void vMQTTAgentTask( void * pvParameters )
             }
         }
 
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         if( xTlsStatus == TLS_TRANSPORT_SUCCESS )
 #else
         if(xW6xStatus == W6X_STATUS_OK)
@@ -1208,11 +1243,31 @@ void vMQTTAgentTask( void * pvParameters )
 
             ( void ) MQTTAgent_CancelAll( &( pxCtx->xAgentContext ) );
 
-            xMQTTStatus = MQTT_Connect( &( pxCtx->xAgentContext.mqttContext ),
-                                        &( pxCtx->xConnectInfo ),
-                                        NULL,
-                                        CONNACK_RECV_TIMEOUT_MS,
-                                        &xSessionPresent );
+            pThingName = KVStore_getStringHeap(CS_CORE_THING_NAME, &uxThingNameLen);
+            configASSERT(pThingName != NULL);
+
+            /* Allocate and initialize LWT structure */
+            static MQTTPublishInfo_t xWillInfo;
+
+            int topicLen = snprintf(pcWillTopicBuf, 64, "%s/status/availability", pThingName);
+            const char *pWillPayload  = "offline";// Create static payload
+            xWillInfo.retain          = true;
+            xWillInfo.qos             = MQTTQoS0;
+            xWillInfo.dup             = false;
+            xWillInfo.pTopicName      = pcWillTopicBuf;
+            xWillInfo.topicNameLength = (uint16_t) topicLen;
+            xWillInfo.pPayload        = pWillPayload;
+            xWillInfo.payloadLength   = strlen(pWillPayload);
+
+            /* Assign pointer */
+            pWillInfo = &xWillInfo;
+
+            /* MQTT_Connect with populated pWillInfo */
+            xMQTTStatus = MQTT_Connect(&(pxCtx->xAgentContext.mqttContext),
+                                       &(pxCtx->xConnectInfo),
+                                       pWillInfo,
+                                       CONNACK_RECV_TIMEOUT_MS,
+                                       &xSessionPresent);
 
             configASSERT_CONTINUE( MUTEX_IS_OWNED( pxCtx->xSubMgrCtx.xMutex ) );
 
@@ -1295,7 +1350,7 @@ void vMQTTAgentTask( void * pvParameters )
         }
 
         ( void ) MQTTAgent_CancelAll( &( pxCtx->xAgentContext ) );
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         mbedtls_transport_disconnect( pxNetworkContext );
 #else
         w6x_transport_disconnect(pxNetworkContext);
@@ -1343,7 +1398,7 @@ void vMQTTAgentTask( void * pvParameters )
 
     if( pxNetworkContext != NULL )
     {
-#if !defined(ST67W6X)
+#if !defined(ST67W6X_NCP)
         mbedtls_transport_disconnect( pxNetworkContext );
         mbedtls_transport_free( pxNetworkContext );
 #else
