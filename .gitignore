@@ -2,3 +2,7 @@ Appli/Debug/
 FSBL/Debug/
 FSBL/Release/
 ExtMemLoader/Debug
+bin/*.bin
+bin/log.txt
+bin/*.crt
+bin/*.pem

@@ -20,6 +20,37 @@ if (-not $portName) {
 $baudRate = 115200
 $serialPort = $null
 
+function Assert-SerialPortAvailable {
+    param(
+        [Parameter(Mandatory = $true)][string]$PortName,
+        [Parameter(Mandatory = $true)][int]$BaudRate
+    )
+
+    if ([string]::IsNullOrWhiteSpace($PortName)) {
+        throw "Serial port is not configured. Set 'portName' in config.json or connect STLink Virtual COM Port."
+    }
+
+    $probePort = New-Object System.IO.Ports.SerialPort $PortName, $BaudRate, "None", 8, "One"
+    try {
+        $probePort.Open()
+        $probePort.Close()
+    }
+    catch [System.UnauthorizedAccessException] {
+        throw "Serial port '$PortName' is currently in use or access is denied. Close other serial terminals/tools using this COM port and retry."
+    }
+    catch [System.IO.IOException] {
+        throw "Serial port '$PortName' cannot be opened. Verify the board connection and that no other program is using the COM port."
+    }
+    finally {
+        if ($null -ne $probePort -and $probePort.IsOpen) {
+            $probePort.Close()
+        }
+        if ($null -ne $probePort) {
+            $probePort.Dispose()
+        }
+    }
+}
+
 # Root CA download settings
 $defaultMosquittoRootCaUrl = "https://test.mosquitto.org/ssl/mosquitto.org.crt"
 $mosquittoRootCaUrl = $defaultMosquittoRootCaUrl
@@ -120,6 +151,8 @@ function Ensure-RootCaFile {
 }
 
 try {
+    Assert-SerialPortAvailable -PortName $portName -BaudRate $baudRate
+
     # Open serial session to board CLI
     $serialPort = New-Object System.IO.Ports.SerialPort $portName, $baudRate, "None", 8, "One"
     $serialPort.Open()
@@ -204,6 +237,12 @@ try {
     Send-Command "conf commit"
     Start-Sleep -Seconds 1
     Send-Command "reset"
+}
+catch {
+    Write-Host ""
+    Write-Host "COM port '$portName' is currently used by another application."
+    Write-Host "Close/disconnect the application using the COM port, then run this script again."
+    exit 1
 }
 finally {
     # Always close serial port, even on failure
