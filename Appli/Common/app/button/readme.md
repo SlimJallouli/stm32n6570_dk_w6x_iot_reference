@@ -1,13 +1,13 @@
-# STM32U585 MQTT Button Status Example (button_task.c)
+# MQTT Button Status Example (button_task.c)
 
-This example publishes USER button state from **B-U585I-IOT02A** to MQTT whenever the button changes.
+This example publishes USER button state to MQTT whenever the button changes.
 
 ## MQTT Topic
 
 - Report topic: `<thing_name>/sensor/button/reported`
 
 Example thing name:
-- `stm32u585-002C005B3332511738363236`
+- `stm32n6-002C005B3332511738363236`
 
 ## Report Payload
 

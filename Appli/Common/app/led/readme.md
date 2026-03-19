@@ -1,6 +1,6 @@
-# STM32U585 MQTT LED Control Example (led_task.c)
+# MQTT LED Control Example (led_task.c)
 
-This example shows how to control onboard LEDs on **B-U585I-IOT02A** over MQTT and report current LED state back to the broker.
+This example shows how to control onboard LEDs over MQTT and report current LED state back to the broker.
 
 ## MQTT Topics
 
@@ -8,7 +8,7 @@ This example shows how to control onboard LEDs on **B-U585I-IOT02A** over MQTT a
 - Report topic: `<thing_name>/led/reported`
 
 Example thing name:
-- `stm32u585-002C005B3332511738363236`
+- `stm32n6-002C005B3332511738363236`
 
 ## Command Payloads
 
