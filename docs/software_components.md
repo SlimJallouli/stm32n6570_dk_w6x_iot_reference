@@ -16,7 +16,7 @@ The CLI is used for runtime setup, provisioning, and diagnostics.
 
 See:
 
-- `Appli/Common/cli/ReadMe.md`
+- [Appli/Common/cli/ReadMe.md](../Appli/Common/cli/ReadMe.md)
 
 ## PkiObject API
 
@@ -24,7 +24,7 @@ The PkiObject layer handles representation/conversion of certificates and keys u
 
 See:
 
-- `Appli/Common/crypto/ReadMe.md`
+- [Appli/Common/crypto/ReadMe.md](../Appli/Common/crypto/ReadMe.md)
 
 ## Security and Storage Architecture
 

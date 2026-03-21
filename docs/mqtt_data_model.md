@@ -37,5 +37,5 @@ Behavior:
 
 ## References
 
-- LED guide: `Appli/Common/app/led/readme.md`
-- Button guide: `Appli/Common/app/button/readme.md`
+- LED guide: [Appli/Common/app/led/readme.md](../Appli/Common/app/led/readme.md)
+- Button guide: [Appli/Common/app/button/readme.md](../Appli/Common/app/button/readme.md)

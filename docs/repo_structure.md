@@ -8,7 +8,10 @@ This document maps the repository layout and the role of each major module.
 - `Appli/` - main firmware project (FreeRTOS, networking, TLS, MQTT, application tasks)
 - `bin/` - script-based flashing and provisioning flow
 - `docs/` - technical documentation
-- `provision_*.md` - additional provisioning guides
+- additional provisioning guides:
+  - [provision_aws_single_cli.md](../provision_aws_single_cli.md)
+  - [provision_aws_single_script.md](../provision_aws_single_script.md)
+  - [provision_mosquitto.md](../provision_mosquitto.md)
 
 ## `Appli/Common` Overview
 
