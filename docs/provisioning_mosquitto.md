@@ -2,6 +2,9 @@
 
 This guide covers provisioning to the public Mosquitto test broker.
 
+The project uses X.509 certificates to securely communicate with Mosquitto over a mutual TLS (mTLS) connection.
+Device certificates generated in this flow are valid for 90 days.
+
 ## Prerequisites
 
 - Board connected through STLink Virtual COM
