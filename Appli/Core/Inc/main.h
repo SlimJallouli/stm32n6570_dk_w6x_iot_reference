@@ -222,7 +222,7 @@ void Error_Handler(void);
 /********************* Board config *********************/
 #define democonfigMAX_THING_NAME_LENGTH         128
 
-#define BOARD                                   "stm32n6570_dk"
+#define BOARD                                   "STM32N6570_DK"
 #define democonfigDEVICE_PREFIX                 "stm32n6"
 #define OTA_FILE_NAME                           "stm32n6570_dk_w6x_iot_reference_Appli.bin"
 
