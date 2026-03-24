@@ -10,6 +10,8 @@
 #include "task.h"
 #include <string.h>
 
+#if defined(MBEDTLS_SHA256_ALT)
+
 extern HASH_HandleTypeDef hhash;
 
 /* --------------------------------------------------------------------------
@@ -226,3 +228,4 @@ int mbedtls_sha256(const unsigned char *input,
     mbedtls_sha256_free(&ctx);
     return ret;
 }
+#endif

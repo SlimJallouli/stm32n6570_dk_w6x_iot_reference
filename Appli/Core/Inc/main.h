@@ -168,7 +168,7 @@ void Error_Handler(void);
 #define MBEDTLS_DEBUG_INFO                      3 /* Provides general information about the SSL/TLS process                 */
 #define MBEDTLS_DEBUG_VERBOSE                   4 /* Displays detailed debug information, including low-level operations    */
 
-#define MBEDTLS_DEBUG_THRESHOLD                 MBEDTLS_DEBUG_NO_DEBUG
+#define MBEDTLS_DEBUG_THRESHOLD                 MBEDTLS_DEBUG_ERROR
 
 /******************** Tasks config ********************/
 #define DEMO_LED                                1   // LED Control Example

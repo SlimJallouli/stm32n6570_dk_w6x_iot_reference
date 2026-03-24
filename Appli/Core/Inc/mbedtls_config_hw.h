@@ -310,7 +310,7 @@ void mbedtls_platform_free( void * ptr );
  *            digests and ciphers instead.
  *
  */
-/*#define MBEDTLS_AES_ALT */
+#define MBEDTLS_AES_ALT
 /*#define MBEDTLS_ARIA_ALT */
 /*#define MBEDTLS_CAMELLIA_ALT */
 /*#define MBEDTLS_CCM_ALT */
@@ -320,7 +320,7 @@ void mbedtls_platform_free( void * ptr );
 /*#define MBEDTLS_DES_ALT */
 /*#define MBEDTLS_DHM_ALT */
 /*#define MBEDTLS_ECJPAKE_ALT */
-/*#define MBEDTLS_GCM_ALT */
+/*#define` MBEDTLS_GCM_ALT */
 /*#define MBEDTLS_NIST_KW_ALT */
 /*#define MBEDTLS_MD5_ALT */
 /*#define MBEDTLS_POLY1305_ALT */
@@ -538,28 +538,28 @@ void mbedtls_platform_free( void * ptr );
  *
  * Enable Cipher Feedback mode (CFB) for symmetric ciphers.
  */
-#define MBEDTLS_CIPHER_MODE_CFB
+/* #define MBEDTLS_CIPHER_MODE_CFB */
 
 /**
  * \def MBEDTLS_CIPHER_MODE_CTR
  *
  * Enable Counter Block Cipher mode (CTR) for symmetric ciphers.
  */
-#define MBEDTLS_CIPHER_MODE_CTR
+/* #define MBEDTLS_CIPHER_MODE_CTR */
 
 /**
  * \def MBEDTLS_CIPHER_MODE_OFB
  *
  * Enable Output Feedback mode (OFB) for symmetric ciphers.
  */
-#define MBEDTLS_CIPHER_MODE_OFB
+/* #define MBEDTLS_CIPHER_MODE_OFB */
 
 /**
  * \def MBEDTLS_CIPHER_MODE_XTS
  *
  * Enable Xor-encrypt-xor with ciphertext stealing mode (XTS) for AES.
  */
-#define MBEDTLS_CIPHER_MODE_XTS
+/* #define MBEDTLS_CIPHER_MODE_XTS */
 
 /**
  * \def MBEDTLS_CIPHER_NULL_CIPHER
@@ -625,20 +625,20 @@ void mbedtls_platform_free( void * ptr );
  * Comment macros to disable the curve and functions for it
  */
 /* Short Weierstrass curves (supporting ECP, ECDH, ECDSA) */
-#define MBEDTLS_ECP_DP_SECP192R1_ENABLED
-#define MBEDTLS_ECP_DP_SECP224R1_ENABLED
+/*#define MBEDTLS_ECP_DP_SECP192R1_ENABLED */
+/*#define MBEDTLS_ECP_DP_SECP224R1_ENABLED */
 #define MBEDTLS_ECP_DP_SECP256R1_ENABLED
-#define MBEDTLS_ECP_DP_SECP384R1_ENABLED
-#define MBEDTLS_ECP_DP_SECP521R1_ENABLED
-#define MBEDTLS_ECP_DP_SECP192K1_ENABLED
-#define MBEDTLS_ECP_DP_SECP224K1_ENABLED
-#define MBEDTLS_ECP_DP_SECP256K1_ENABLED
-#define MBEDTLS_ECP_DP_BP256R1_ENABLED
-#define MBEDTLS_ECP_DP_BP384R1_ENABLED
-#define MBEDTLS_ECP_DP_BP512R1_ENABLED
-/* Montgomery curves (supporting ECP) */
-#define MBEDTLS_ECP_DP_CURVE25519_ENABLED
-#define MBEDTLS_ECP_DP_CURVE448_ENABLED
+/*#define MBEDTLS_ECP_DP_SECP384R1_ENABLED */
+/*#define MBEDTLS_ECP_DP_SECP521R1_ENABLED */
+/*#define MBEDTLS_ECP_DP_SECP192K1_ENABLED */
+/*#define MBEDTLS_ECP_DP_SECP224K1_ENABLED */
+/*#define MBEDTLS_ECP_DP_SECP256K1_ENABLED */
+/*#define MBEDTLS_ECP_DP_BP256R1_ENABLED   */
+/*#define MBEDTLS_ECP_DP_BP384R1_ENABLED   */
+/*#define MBEDTLS_ECP_DP_BP512R1_ENABLED   */
+/* Montgomery curves (supporting ECP)      */
+/*#define MBEDTLS_ECP_DP_CURVE25519_ENABLED*/
+/*9#define MBEDTLS_ECP_DP_CURVE448_ENABLED */
 
 /**
  * \def MBEDTLS_ECP_NIST_OPTIM

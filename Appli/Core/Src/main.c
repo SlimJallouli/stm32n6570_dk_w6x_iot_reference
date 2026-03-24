@@ -135,8 +135,6 @@ int main(void)
   SystemIsolation_Config();
   MX_EXTMEM_MANAGER_Init();
   /* USER CODE BEGIN 2 */
-  __HAL_DBGMCU_FREEZE_IWDG();
-
   MX_FREERTOS_Init();
   /* USER CODE END 2 */
 
@@ -252,6 +250,7 @@ static void MX_IWDG_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN IWDG_Init 2 */
+  __HAL_DBGMCU_FREEZE_IWDG();
 #endif
   /* USER CODE END IWDG_Init 2 */
 
@@ -482,12 +481,12 @@ static void MX_CRYP_Init(void)
 
   /* USER CODE END CRYP_Init 1 */
   hcryp.Instance = CRYP;
-  hcryp.Init.DataType = CRYP_DATATYPE_32B;
+  hcryp.Init.DataType = CRYP_BYTE_SWAP;
   hcryp.Init.KeySize = CRYP_KEYSIZE_128B;
   hcryp.Init.pKey = (uint32_t *)pKeyCRYP;
   hcryp.Init.Algorithm = CRYP_AES_ECB;
-  hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_WORD;
-  hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_WORD;
+  hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_BYTE;
+  hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_BYTE;
   hcryp.Init.KeyIVConfigSkip = CRYP_KEYIVCONFIG_ALWAYS;
   hcryp.Init.KeyMode = CRYP_KEYMODE_NORMAL;
   if (HAL_CRYP_Init(&hcryp) != HAL_OK)
@@ -516,12 +515,12 @@ static void MX_SAES_CRYP_Init(void)
 
   /* USER CODE END SAES_Init 1 */
   hcryp.Instance = SAES;
-  hcryp.Init.DataType = CRYP_DATATYPE_32B;
+  hcryp.Init.DataType = CRYP_BYTE_SWAP;
   hcryp.Init.KeySize = CRYP_KEYSIZE_128B;
   hcryp.Init.pKey = (uint32_t *)pKeySAES;
   hcryp.Init.Algorithm = CRYP_AES_ECB;
-  hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_WORD;
-  hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_WORD;
+  hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_BYTE;
+  hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_BYTE;
   hcryp.Init.KeyIVConfigSkip = CRYP_KEYIVCONFIG_ALWAYS;
   hcryp.Init.KeyMode = CRYP_KEYMODE_NORMAL;
   hcryp.Init.KeySelect = CRYP_KEYSEL_NORMAL;
