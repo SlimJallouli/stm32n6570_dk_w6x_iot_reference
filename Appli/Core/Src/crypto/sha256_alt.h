@@ -3,17 +3,20 @@
 
 #include <stddef.h>
 #include <stdint.h>
-#include "stm32n6xx_hal_hash.h"
-
-#define STM32_HASH_CSR_WORD_COUNT          ( 103U )
-#define STM32_HASH_SNAPSHOT_WORD_COUNT     ( STM32_HASH_CSR_WORD_COUNT + 3U )
 
 /*
- * Match the original mbedtls_sha256_context layout so that any
- * existing code that relies on sizeof/clone/etc. stays valid.
+ * SHA256 ALT context for STM32 hardware-accelerated hashing.
  *
- * We only actively use total[] and buffer[] in the HW offload,
- * but keeping state[] and is224 preserves ABI compatibility.
+ * We keep total[], state[], buffer[], and is224 to match the original
+ * mbedtls_sha256_context layout expectations for mbedTLS itself, but
+ * all hashing is implemented as:
+ *
+ *   - Buffered message accumulation in hw_msg_buf
+ *   - One-shot HAL_HASH_Start() in mbedtls_sha256_finish()
+ *
+ * Incremental HAL HASH (suspend/resume, Accumulate) is intentionally
+ * not used because it is not reliable for chunked updates and breaks
+ * TLS transcript hashing and X.509 verification in real workloads.
  */
 typedef struct mbedtls_sha256_context
 {
@@ -21,19 +24,11 @@ typedef struct mbedtls_sha256_context
     uint32_t state[8];          /*!< The intermediate digest state.  */
     unsigned char buffer[64];   /*!< The data block being processed. */
     int is224;                  /*!< 0: SHA-256, 1: SHA-224.        */
-    uint32_t hw_snapshot[STM32_HASH_SNAPSHOT_WORD_COUNT]; /*!< HASH peripheral snapshot. */
-    uint8_t hw_snapshot_valid;  /*!< 1 when hw_snapshot contains valid context. */
-    HASH_ConfigTypeDef hw_init_saved;
-    const uint8_t * hw_in_ptr_saved;
-    uint8_t * hw_out_ptr_saved;
-    uint32_t hw_hash_in_count_saved;
-    uint32_t hw_size_saved;
-    uint8_t * hw_key_ptr_saved;
-    HAL_HASH_PhaseTypeDef hw_phase_saved;
-    uint8_t hw_hal_saved_valid;
-    uint8_t * hw_msg_buf;
-    size_t hw_msg_len;
-    size_t hw_msg_cap;
+
+    /* Buffered hardware mode: message storage for one-shot HAL hashing. */
+    uint8_t *hw_msg_buf;
+    size_t   hw_msg_len;
+    size_t   hw_msg_cap;
 }
 mbedtls_sha256_context;
 
