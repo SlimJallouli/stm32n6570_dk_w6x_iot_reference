@@ -1,9 +1,11 @@
 $ErrorActionPreference = "Stop"
 
 $APP_NAME = "stm32n6570_dk_w6x_iot_reference"
+$BUIL_CONFIG="Debug"
+# $BUIL_CONFIG="HW_Crypto"
 
 $FSBL_BIN_FILE = ".\FSBL\Release\${APP_NAME}_FSBL.bin"
-$APP_BIN_FILE = ".\Appli\Debug\${APP_NAME}_Appli.bin"
+$APP_BIN_FILE = ".\Appli\${BUIL_CONFIG}\${APP_NAME}_Appli.bin"
 
 # NOR external flash start address: 0x70000000
 $FLASH_FSBL_ADDRESS = "0x70000000"

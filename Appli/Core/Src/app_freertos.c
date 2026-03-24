@@ -154,6 +154,12 @@ void MX_FREERTOS_Init(void)
   LogInfo("Build Date: %s\n", __DATE__);
   LogInfo("Build Time: %s\n", __TIME__);
 
+#if defined(HW_CRYPTO)
+  LogInfo("HW Crypto enabled");
+#else
+  LogInfo("Software Crypto");
+#endif
+
   xResult = xTaskCreate(StartDefaultTask, "DefaultTask", configMINIMAL_STACK_SIZE * 4, NULL, tskIDLE_PRIORITY, NULL);
   configASSERT(xResult == pdTRUE);
 

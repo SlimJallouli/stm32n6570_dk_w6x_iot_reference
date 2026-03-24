@@ -122,23 +122,6 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 /********** X-NUCLEO-WW611M1 Pin definition ***********/
-#if 0
-#define SPI_SLAVE_DATA_RDY_Pin                  ARD_D03_Pin
-#define SPI_SLAVE_DATA_RDY_GPIO_Port            ARD_D03_GPIO_Port
-#define SPI_SLAVE_DATA_RDY_EXTI_IRQn            ARD_D03_EXTI_IRQn
-
-#define CHIP_EN_Pin                             ARD_D05_Pin
-#define CHIP_EN_GPIO_Port                       ARD_D05_GPIO_Port
-
-#define BOOT_Pin                                ARD_D06_Pin
-#define BOOT_GPIO_Port                          ARD_D06_GPIO_Port
-
-
-#define LP_WAKEUP_Pin                           ARD_D10_Pin
-#define LP_WAKEUP_GPIO_Port                     ARD_D10_GPIO_Port
-
-#else
-/********** X-NUCLEO-WW611M1 Pin definition ***********/
 #if !defined(SPI_RDY_Pin)
 #define SPI_RDY_Pin                             ARD_D03_Pin
 #define SPI_RDY_GPIO_Port                       ARD_D03_GPIO_Port
@@ -160,7 +143,6 @@ void Error_Handler(void);
 #define SPI_CS_GPIO_Port                        ARD_D10_GPIO_Port
 #endif
 
-#endif
 /************ Board LED Pin configuration *************/
 #define LED_RED_ON                              GPIO_PIN_RESET
 #define LED_RED_OFF                             GPIO_PIN_SET
@@ -186,7 +168,7 @@ void Error_Handler(void);
 #define MBEDTLS_DEBUG_INFO                      3 /* Provides general information about the SSL/TLS process                 */
 #define MBEDTLS_DEBUG_VERBOSE                   4 /* Displays detailed debug information, including low-level operations    */
 
-#define MBEDTLS_DEBUG_THRESHOLD                 MBEDTLS_DEBUG_NO_DEBUG
+#define MBEDTLS_DEBUG_THRESHOLD                 MBEDTLS_DEBUG_INFO
 
 /******************** Tasks config ********************/
 #define DEMO_LED                                1   // LED Control Example

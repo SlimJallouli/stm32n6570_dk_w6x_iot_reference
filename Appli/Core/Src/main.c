@@ -42,12 +42,23 @@
 
 /* Private variables ---------------------------------------------------------*/
 
+HASH_HandleTypeDef hhash;
+#if defined(HAL_IWDG_MODULE_ENABLED)
 IWDG_HandleTypeDef hiwdg;
+#endif
 
 UART_HandleTypeDef hlpuart1;
 UART_HandleTypeDef huart2;
 
+PKA_HandleTypeDef hpka;
+
 RNG_HandleTypeDef hrng;
+
+CRYP_HandleTypeDef hcryp;
+__ALIGN_BEGIN static const uint32_t pKeyCRYP[4] __ALIGN_END = {
+                            0x00000000,0x00000000,0x00000000,0x00000000};
+__ALIGN_BEGIN static const uint32_t pKeySAES[4] __ALIGN_END = {
+                            0x00000000,0x00000000,0x00000000,0x00000000};
 
 SPI_HandleTypeDef hspi5;
 DMA_HandleTypeDef handle_GPDMA1_Channel1;
@@ -71,6 +82,10 @@ static void MX_RNG_Init(void);
 static void MX_XSPI2_Init(void);
 static void MX_IWDG_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_HASH_Init(void);
+static void MX_PKA_Init(void);
+static void MX_CRYP_Init(void);
+static void MX_SAES_CRYP_Init(void);
 static void SystemIsolation_Config(void);
 /* USER CODE BEGIN PFP */
 static void MX_XSPI2_Deinit(void);
@@ -113,9 +128,15 @@ int main(void)
   MX_XSPI2_Init();
   MX_IWDG_Init();
   MX_USART2_UART_Init();
+  MX_HASH_Init();
+  MX_PKA_Init();
+  MX_CRYP_Init();
+  MX_SAES_CRYP_Init();
   SystemIsolation_Config();
   MX_EXTMEM_MANAGER_Init();
   /* USER CODE BEGIN 2 */
+  __HAL_DBGMCU_FREEZE_WWDG();
+
   MX_FREERTOS_Init();
   /* USER CODE END 2 */
 
@@ -179,6 +200,34 @@ static void MX_GPDMA1_Init(void)
 }
 
 /**
+  * @brief HASH Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_HASH_Init(void)
+{
+
+  /* USER CODE BEGIN HASH_Init 0 */
+
+  /* USER CODE END HASH_Init 0 */
+
+  /* USER CODE BEGIN HASH_Init 1 */
+
+  /* USER CODE END HASH_Init 1 */
+  hhash.Instance = HASH;
+  hhash.Init.DataType = HASH_BYTE_SWAP;
+  hhash.Init.Algorithm = HASH_ALGOSELECTION_SHA256;
+  if (HAL_HASH_Init(&hhash) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN HASH_Init 2 */
+
+  /* USER CODE END HASH_Init 2 */
+
+}
+
+/**
   * @brief IWDG Initialization Function
   * @param None
   * @retval None
@@ -187,7 +236,7 @@ static void MX_IWDG_Init(void)
 {
 
   /* USER CODE BEGIN IWDG_Init 0 */
-
+#if defined(HAL_IWDG_MODULE_ENABLED)
   /* USER CODE END IWDG_Init 0 */
 
   /* USER CODE BEGIN IWDG_Init 1 */
@@ -203,7 +252,7 @@ static void MX_IWDG_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN IWDG_Init 2 */
-
+#endif
   /* USER CODE END IWDG_Init 2 */
 
 }
@@ -305,6 +354,32 @@ static void MX_USART2_UART_Init(void)
 }
 
 /**
+  * @brief PKA Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_PKA_Init(void)
+{
+
+  /* USER CODE BEGIN PKA_Init 0 */
+
+  /* USER CODE END PKA_Init 0 */
+
+  /* USER CODE BEGIN PKA_Init 1 */
+
+  /* USER CODE END PKA_Init 1 */
+  hpka.Instance = PKA;
+  if (HAL_PKA_Init(&hpka) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN PKA_Init 2 */
+
+  /* USER CODE END PKA_Init 2 */
+
+}
+
+/**
   * @brief RIF Initialization Function
   * @param None
   * @retval None
@@ -388,6 +463,76 @@ static void MX_RNG_Init(void)
   /* USER CODE BEGIN RNG_Init 2 */
 
   /* USER CODE END RNG_Init 2 */
+
+}
+
+/**
+  * @brief CRYP Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_CRYP_Init(void)
+{
+
+  /* USER CODE BEGIN CRYP_Init 0 */
+
+  /* USER CODE END CRYP_Init 0 */
+
+  /* USER CODE BEGIN CRYP_Init 1 */
+
+  /* USER CODE END CRYP_Init 1 */
+  hcryp.Instance = CRYP;
+  hcryp.Init.DataType = CRYP_DATATYPE_32B;
+  hcryp.Init.KeySize = CRYP_KEYSIZE_128B;
+  hcryp.Init.pKey = (uint32_t *)pKeyCRYP;
+  hcryp.Init.Algorithm = CRYP_AES_ECB;
+  hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_WORD;
+  hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_WORD;
+  hcryp.Init.KeyIVConfigSkip = CRYP_KEYIVCONFIG_ALWAYS;
+  hcryp.Init.KeyMode = CRYP_KEYMODE_NORMAL;
+  if (HAL_CRYP_Init(&hcryp) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN CRYP_Init 2 */
+
+  /* USER CODE END CRYP_Init 2 */
+
+}
+
+/**
+  * @brief SAES Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SAES_CRYP_Init(void)
+{
+
+  /* USER CODE BEGIN SAES_Init 0 */
+
+  /* USER CODE END SAES_Init 0 */
+
+  /* USER CODE BEGIN SAES_Init 1 */
+
+  /* USER CODE END SAES_Init 1 */
+  hcryp.Instance = SAES;
+  hcryp.Init.DataType = CRYP_DATATYPE_32B;
+  hcryp.Init.KeySize = CRYP_KEYSIZE_128B;
+  hcryp.Init.pKey = (uint32_t *)pKeySAES;
+  hcryp.Init.Algorithm = CRYP_AES_ECB;
+  hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_WORD;
+  hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_WORD;
+  hcryp.Init.KeyIVConfigSkip = CRYP_KEYIVCONFIG_ALWAYS;
+  hcryp.Init.KeyMode = CRYP_KEYMODE_NORMAL;
+  hcryp.Init.KeySelect = CRYP_KEYSEL_NORMAL;
+  hcryp.Init.KeyProtection = CRYP_KEYPROT_DISABLE;
+  if (HAL_CRYP_Init(&hcryp) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SAES_Init 2 */
+
+  /* USER CODE END SAES_Init 2 */
 
 }
 

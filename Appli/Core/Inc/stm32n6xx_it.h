@@ -56,9 +56,15 @@ void DebugMon_Handler(void);
 void IWDG_IRQHandler(void);
 void EXTI9_IRQHandler(void);
 void EXTI13_IRQHandler(void);
+void SAES_IRQHandler(void);
+void CRYP_IRQHandler(void);
+void PKA_IRQHandler(void);
+void HASH_IRQHandler(void);
+void RNG_IRQHandler(void);
 void GPDMA1_Channel0_IRQHandler(void);
 void GPDMA1_Channel1_IRQHandler(void);
 void SPI5_IRQHandler(void);
+void USART2_IRQHandler(void);
 void LPUART1_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 

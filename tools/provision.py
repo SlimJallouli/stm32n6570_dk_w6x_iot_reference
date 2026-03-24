@@ -86,8 +86,8 @@ class TargetDevice:
         self._read_response()
 
     def _send_cmd(self, *args, timeout=_timeout):
+        time.sleep(1)  # Allow time for the target to process the previous command
         """Send a single command to the target and return True if the readback matches."""
-        time.sleep(1)
         cmd = b" ".join(args)
         cmdstr = cmd + b"\r\n"
 
@@ -232,7 +232,6 @@ class TargetDevice:
         else:
             self._send_cmd(b"pki generate key")
 
-        time.sleep(2)  # Allow time for the target to generate the key
         pubkey = self._read_pem()
 
         return pubkey

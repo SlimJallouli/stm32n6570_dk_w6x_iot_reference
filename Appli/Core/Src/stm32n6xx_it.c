@@ -66,7 +66,14 @@ extern void xPortSysTickHandler(void);
 
 /* External variables --------------------------------------------------------*/
 extern UART_HandleTypeDef hlpuart1;
+extern HASH_HandleTypeDef hhash;
+#if defined(HAL_IWDG_MODULE_ENABLED)
 extern IWDG_HandleTypeDef hiwdg;
+#endif
+extern UART_HandleTypeDef huart2;
+extern PKA_HandleTypeDef hpka;
+extern RNG_HandleTypeDef hrng;
+extern CRYP_HandleTypeDef hcryp;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel1;
 extern DMA_HandleTypeDef handle_GPDMA1_Channel0;
 extern SPI_HandleTypeDef hspi5;
@@ -230,6 +237,76 @@ void EXTI13_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles Secure AES global interrupt.
+  */
+void SAES_IRQHandler(void)
+{
+  /* USER CODE BEGIN SAES_IRQn 0 */
+
+  /* USER CODE END SAES_IRQn 0 */
+  HAL_CRYP_IRQHandler(&hcryp);
+  /* USER CODE BEGIN SAES_IRQn 1 */
+
+  /* USER CODE END SAES_IRQn 1 */
+}
+
+/**
+  * @brief This function handles CRYP global interrupt.
+  */
+void CRYP_IRQHandler(void)
+{
+  /* USER CODE BEGIN CRYP_IRQn 0 */
+
+  /* USER CODE END CRYP_IRQn 0 */
+  HAL_CRYP_IRQHandler(&hcryp);
+  /* USER CODE BEGIN CRYP_IRQn 1 */
+
+  /* USER CODE END CRYP_IRQn 1 */
+}
+
+/**
+  * @brief This function handles PKA global interrupt.
+  */
+void PKA_IRQHandler(void)
+{
+  /* USER CODE BEGIN PKA_IRQn 0 */
+
+  /* USER CODE END PKA_IRQn 0 */
+  HAL_PKA_IRQHandler(&hpka);
+  /* USER CODE BEGIN PKA_IRQn 1 */
+
+  /* USER CODE END PKA_IRQn 1 */
+}
+
+/**
+  * @brief This function handles HASH global interrupt.
+  */
+void HASH_IRQHandler(void)
+{
+  /* USER CODE BEGIN HASH_IRQn 0 */
+
+  /* USER CODE END HASH_IRQn 0 */
+  HAL_HASH_IRQHandler(&hhash);
+  /* USER CODE BEGIN HASH_IRQn 1 */
+
+  /* USER CODE END HASH_IRQn 1 */
+}
+
+/**
+  * @brief This function handles RNG global interrupt.
+  */
+void RNG_IRQHandler(void)
+{
+  /* USER CODE BEGIN RNG_IRQn 0 */
+
+  /* USER CODE END RNG_IRQn 0 */
+  HAL_RNG_IRQHandler(&hrng);
+  /* USER CODE BEGIN RNG_IRQn 1 */
+
+  /* USER CODE END RNG_IRQn 1 */
+}
+
+/**
   * @brief This function handles GPDMA1 Channel 0 global interrupt.
   */
 void GPDMA1_Channel0_IRQHandler(void)
@@ -269,6 +346,20 @@ void SPI5_IRQHandler(void)
   /* USER CODE BEGIN SPI5_IRQn 1 */
 
   /* USER CODE END SPI5_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART2 global interrupt.
+  */
+void USART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_IRQn 0 */
+
+  /* USER CODE END USART2_IRQn 0 */
+  HAL_UART_IRQHandler(&huart2);
+  /* USER CODE BEGIN USART2_IRQn 1 */
+
+  /* USER CODE END USART2_IRQn 1 */
 }
 
 /**

@@ -387,10 +387,26 @@ try {
     Start-Sleep -Seconds 1
     Send-Command "reset"
 }
-catch {
+catch [System.UnauthorizedAccessException] {
     Write-Host ""
     Write-Host "COM port '$portName' is currently used by another application."
     Write-Host "Close/disconnect the application using the COM port, then run this script again."
+    Write-Host "Details: $($_.Exception.Message)"
+    exit 1
+}
+catch [System.IO.IOException] {
+    Write-Host ""
+    Write-Host "Serial port '$portName' cannot be opened."
+    Write-Host "Verify the board connection and close any serial terminal using this COM port."
+    Write-Host "Details: $($_.Exception.Message)"
+    exit 1
+}
+catch {
+    Write-Host ""
+    Write-Host "Provisioning failed: $($_.Exception.Message)"
+    if ($_.ScriptStackTrace) {
+        Write-Host $_.ScriptStackTrace
+    }
     exit 1
 }
 finally {

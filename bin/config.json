@@ -1,5 +1,5 @@
 {
-  "broker_type": "mosquitto",
-  "wifi_ssid": "MySSID",
-  "wifi_credential": "MyPassword"
+  "broker_type": "aws",
+  "wifi_ssid": "JSEC",
+  "wifi_credential": "STM32F103RBT6"
 }
