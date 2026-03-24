@@ -135,7 +135,7 @@ int main(void)
   SystemIsolation_Config();
   MX_EXTMEM_MANAGER_Init();
   /* USER CODE BEGIN 2 */
-  __HAL_DBGMCU_FREEZE_WWDG();
+  __HAL_DBGMCU_FREEZE_IWDG();
 
   MX_FREERTOS_Init();
   /* USER CODE END 2 */
