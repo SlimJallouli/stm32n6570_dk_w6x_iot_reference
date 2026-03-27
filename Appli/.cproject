@@ -306,6 +306,7 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="SW_Crypto"/>
 		<configuration configurationName="HW_Crypto"/>
 		<configuration configurationName="HW_Crypro">
 			<resource resourceType="PROJECT" workspacePath="/stm32n6570_dk_w6x_iot_reference_Appli"/>

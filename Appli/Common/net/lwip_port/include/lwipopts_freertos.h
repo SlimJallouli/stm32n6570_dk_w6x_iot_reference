@@ -245,7 +245,7 @@
  * ------------------------------------
  */
 
-#define LWIP_DEBUG                    LWIP_DBG_ON
+/*#define LWIP_DEBUG                    LWIP_DBG_ON */
 /*#define UDP_DEBUG                     LWIP_DBG_ON */
 /*#define SOCKETS_DEBUG                 LWIP_DBG_ON */
 /*#define TCP_DEBUG                     LWIP_DBG_ON */
@@ -255,6 +255,7 @@
 /*#define IP_DEBUG                      LWIP_DBG_ON */
 /*#define ICMP_DEBUG                    LWIP_DBG_ON */
 /*#define RAW_DEBUG                     LWIP_DBG_ON */
+/*#define DNS_DEBUG                     LWIP_DBG_ON */
 
 /*
  * Use the errno.h mechanism from FreeRTOS.

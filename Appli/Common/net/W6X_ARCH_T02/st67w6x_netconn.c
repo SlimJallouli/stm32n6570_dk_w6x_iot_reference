@@ -31,6 +31,14 @@
 #include "w6x_api.h"
 #include "common_parser.h" /* Common Parser functions */
 #include "spi_iface.h" /* SPI falling/rising_callback */
+
+#include "logging_levels.h"
+#if defined(LOG_LEVEL)
+#undef LOG_LEVEL
+#endif
+
+#define LOG_LEVEL    LOG_DEBUG
+
 #include "logging.h"
 
 #ifndef REDEFINE_FREERTOS_INTERFACE
@@ -246,7 +254,7 @@ void net_main(void *argument)
   W6X_WiFi_Connect_Opts_t connect_opts = {0};
   uint8_t mac_addr[6] = {0};
   uint32_t connect_attempts = 0;
-  const uint32_t MAX_CONNECT_ATTEMPTS = 3;
+  const uint32_t MAX_CONNECT_ATTEMPTS = 100;
 
   argument = argument;
 
@@ -331,7 +339,8 @@ void net_main(void *argument)
 
   if(W6X_STATUS_OK == ret)
   {
-    ret = W6X_WiFi_Connect(&connect_opts);
+//    ret = W6X_WiFi_Connect(&connect_opts);
+    APP_setevent(&app_evt_current, EVT_APP_WIFI_DISCONNECTED);
     connect_attempts = 1;
   }
 
@@ -381,10 +390,11 @@ void net_main(void *argument)
       xEventGroupSetBits(xSystemEvents, EVT_MASK_NET_DISCONNECTED);
 
       /* If disconnected unexpectedly, schedule automatic retry */
-      if(connect_attempts > 0 && connect_attempts < MAX_CONNECT_ATTEMPTS)
+//      if(connect_attempts > 0 && connect_attempts < MAX_CONNECT_ATTEMPTS)
       {
-        LogInfo("Automatic reconnection attempt %u/%u\n", connect_attempts + 1, MAX_CONNECT_ATTEMPTS);
-        vTaskDelay(NET_RETRY_BACKOFF);
+//        LogInfo("Automatic reconnection attempt %u/%u\n", connect_attempts + 1, MAX_CONNECT_ATTEMPTS);
+        LogInfo("Reconnection\n");
+//        vTaskDelay(NET_RETRY_BACKOFF);
         W6X_WiFi_Connect(&connect_opts);
         connect_attempts++;
       }
@@ -405,7 +415,7 @@ void net_main(void *argument)
       {
         LogInfo("Initiating Wi-Fi reconnection\n");
         vTaskDelay(NET_RETRY_BACKOFF);
-        ret = W6X_WiFi_Connect(&connect_opts);
+        W6X_WiFi_Connect(&connect_opts);
         connect_attempts = 1;
       }
       else
@@ -521,6 +531,7 @@ static void APP_wifi_cb(W6X_event_id_t event_id, void *event_args)
 
     case W6X_WIFI_EVT_REASON_ID:
       LogInfo("Disconnection reason: %s\n", W6X_WiFi_ReasonToStr(event_args));
+      APP_setevent(&app_evt_current, EVT_APP_WIFI_DISCONNECTED);
       break;
 
     case W6X_WIFI_EVT_DIST_STA_IP_ID:

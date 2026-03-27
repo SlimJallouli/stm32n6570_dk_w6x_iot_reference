@@ -1246,6 +1246,8 @@ TlsTransportStatus_t mbedtls_transport_connect( NetworkContext_t * pxNetworkCont
 
     configASSERT( pxTLSCtx != NULL );
 
+    vTaskDelay(500);
+
     if( pxNetworkContext == NULL )
     {
         LogError( "Invalid input parameter: Arguments cannot be NULL. pxNetworkContext=%p.",
