@@ -6,6 +6,7 @@
 [![Network: LwIP](https://img.shields.io/badge/Network-LwIP-006064)](https://savannah.nongnu.org/projects/lwip/)
 [![TLS: MbedTLS 3.1.1](https://img.shields.io/badge/TLS-MbedTLS%203.1.1-283593)](https://www.keil.arm.com/packs/mbedtls-arm/versions/)
 [![Wi-Fi: ST67W611M1](https://img.shields.io/badge/Wi--Fi-ST67W611M1-0B8043)](https://www.st.com/content/st_com/en/campaigns/st67w-wifi6-bluetooth-thread-module-z13.html)
+[![Hardware Crypto: RNG, SHA256, AES, PKA](https://img.shields.io/badge/HW%20Acceleration-RNG%20%7C%20SHA256%20%7C%20AES%20%7C%20PKA-FF6B6B)](./Appli/Common/crypto/ReadMe.md)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE.md)
 
 This repository provides a complete MQTT-over-TLS reference for the [STM32N6570-DK](https://www.st.com/en/evaluation-tools/stm32n6570-dk.html) paired with the [ST67W611M1](https://www.st.com/content/st_com/en/campaigns/st67w-wifi6-bluetooth-thread-module-z13.html).
@@ -13,16 +14,40 @@ This repository provides a complete MQTT-over-TLS reference for the [STM32N6570-
 It is built for a repeatable bring-up workflow: flash, provision, validate, and then move to source-level build/debug in STM32CubeIDE.
 Validated broker flows in this repository are AWS IoT Core and Mosquitto.
 
+## ⚡ Hardware Crypto Acceleration
+
+This firmware leverages the STM32N6570's advanced cryptographic hardware accelerators to enhance security performance:
+
+| Accelerator | Feature | Use Case |
+|---|---|---|
+| **RNG** | Hardware Random Number Generator | Secure key generation, TLS nonce/IV generation |
+| **SHA256** | SHA2 hardware hashing | Certificate validation, MQTT message integrity |
+| **AES** | AES-128/256 encryption/decryption | TLS symmetric encryption, symmetric key operations |
+| **PKA** | Public Key Accelerator | TLS handshake (ECDSA), certificate-based authentication |
+
+These accelerators are **enabled by default** in MbedTLS via hardware abstraction interfaces (`aes_alt`, `sha256_alt`, `rng_alt`, `ecp_alt`) and are automatically used during TLS handshakes and cryptographic operations. This results in:
+- ✅ **Faster TLS handshakes** (PKA acceleration for elliptic curve operations)
+- ✅ **Reduced CPU load** during encryption/decryption
+- ✅ **Lower power consumption** for IoT deployments
+- ✅ **Improved throughput** for secure MQTT communication
+
+Configuration details: See [Appli/Common/crypto/ReadMe.md](Appli/Common/crypto/ReadMe.md) and [Appli/Core/Inc/mbedtls_config_hw.h](Appli/Core/Inc/mbedtls_config_hw.h).
+
 ## What This Project Covers
 
 - Hardware:
-  - STM32N6570-DK
-  - ST67W611M1 (T02 mission profile)
+  - STM32N6570-DK (with integrated cryptographic accelerators)
+  - ST67W611M1 (T02 mission profile, Wi-Fi 6)
+- Security:
+  - **Hardware-accelerated cryptography** (RNG, SHA256, AES, PKA)
+  - MbedTLS 3.1.1 with hardware abstraction layer
+  - PKCS#11-based key and certificate management
+  - Secure provisioning workflows
 - Application demos:
   - LED control over MQTT
   - Button event reporting over MQTT
 - Provisioning targets:
-  - AWS IoT Core
+  - AWS IoT Core (with auto-provisioning)
   - Mosquitto
 
 ## Required Software
@@ -52,6 +77,22 @@ If you use AWS IoT Core:
 
 For full scripted flashing/provisioning details, see [`bin/readme.md`](bin/readme.md).
 
+## Build Configurations
+
+The `Appli` project in STM32CubeIDE comes with two build configurations, allowing you to choose between hardware-accelerated and software-only cryptography:
+
+| Configuration | Crypto Implementation | Performance | Use Case |
+|---|---|---|---|
+| **HW_Crypto** (default) | Hardware accelerators (RNG, SHA256, AES, PKA) | ⚡ Fast, low CPU/power | Production, performance-critical deployments |
+| **SW_Crypto** | Pure software implementation (mbedTLS standard) | Standard | Development, testing, validation without hardware features |
+
+**Switching configurations:**
+1. In STM32CubeIDE: Right-click `Appli` → Build Configurations → Set Active
+2. Or use the configuration dropdown in the toolbar
+3. Rebuild the project (Project → Clean / Build)
+
+Both configurations use identical MQTT/FreeRTOS/LwIP stacks and are binary-compatible for provisioning workflows—only the crypto backend differs.
+
 ## Runtime Architecture
 
 ```mermaid
@@ -70,6 +111,7 @@ flowchart TD
 |---|---|
 | Architecture and middleware | [docs/architecture.md](docs/architecture.md) |
 | Software components | [docs/software_components.md](docs/software_components.md) |
+| Hardware crypto accelerators | [Appli/Core/Src/crypto/CRYPTO_ACCELERATORS.md](Appli/Core/Src/crypto/CRYPTO_ACCELERATORS.md) |
 | Build, debug, and flash | [docs/debug.md](docs/debug.md) |
 | Scripted flash/provision flow | [bin/readme.md](bin/readme.md) |
 | MQTT topic/data model | [docs/mqtt_data_model.md](docs/mqtt_data_model.md) |
