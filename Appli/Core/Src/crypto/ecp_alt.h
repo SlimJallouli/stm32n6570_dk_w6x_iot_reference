@@ -1,3 +1,26 @@
+/* USER CODE BEGIN Header */
+/**
+ ******************************************************************************
+ * @file    ecp_alt.h
+ * @author  GPM Application Team
+ * @version V1.0
+ * @date    31-March-2026
+ * @brief   mbedTLS ECP hardware acceleration interface definitions.
+ *          Declares alternate elliptic curve point arithmetic functions
+ *          for STM32N6570 PKA peripheral acceleration.
+ *
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 #ifndef ECP_ALT_H
 #define ECP_ALT_H
 

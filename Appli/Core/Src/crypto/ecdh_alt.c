@@ -1,4 +1,26 @@
-
+/* USER CODE BEGIN Header */
+/**
+ ******************************************************************************
+ * @file    ecdh_alt.c
+ * @author  GPM Application Team
+ * @version V1.0
+ * @date    31-March-2026
+ * @brief   mbedTLS ECDH hardware acceleration implementation.
+ *          Hardware-accelerated ECDH public key generation and shared secret
+ *          computation using STM32N6570 PKA peripheral for P-256 curves.
+ *
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 #define MBEDTLS_ALLOW_PRIVATE_ACCESS
 
 #include "logging_levels.h"

@@ -1,3 +1,26 @@
+/* USER CODE BEGIN Header */
+/**
+ ******************************************************************************
+ * @file    sha256_alt.h
+ * @author  GPM Application Team
+ * @version V1.0
+ * @date    31-March-2026
+ * @brief   mbedTLS SHA256 hardware acceleration context definition.
+ *          Provides alternate context structure for STM32N6570 hardware
+ *          SHA256 offloading with buffered message accumulation.
+ *
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 #ifndef STM32_SHA256_ALT_H
 #define STM32_SHA256_ALT_H
 

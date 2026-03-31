@@ -1,3 +1,26 @@
+/* USER CODE BEGIN Header */
+/**
+ ******************************************************************************
+ * @file    sha256_alt.c
+ * @author  GPM Application Team
+ * @version V1.0
+ * @date    31-March-2026
+ * @brief   mbedTLS SHA256 hardware acceleration implementation.
+ *          Hardware-accelerated SHA256 hashing using STM32N6570 HASH
+ *          peripheral with buffered one-shot processing for reliable TLS.
+ *
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 #define MBEDTLS_ALLOW_PRIVATE_ACCESS
 
 #include "mbedtls/sha256.h"
