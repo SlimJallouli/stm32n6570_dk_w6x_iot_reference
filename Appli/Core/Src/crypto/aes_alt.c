@@ -112,7 +112,7 @@ int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
     if( mode == MBEDTLS_AES_ENCRYPT )
     {
         st = HAL_CRYP_Encrypt( &hcryp,
-                               (uint8_t *) input,
+                               (uint32_t *) input,
                                16U,
                                output,
                                HAL_MAX_DELAY );
@@ -120,7 +120,7 @@ int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
     else
     {
         st = HAL_CRYP_Decrypt( &hcryp,
-                               (uint8_t *) input,
+                               (uint32_t *) input,
                                16U,
                                output,
                                HAL_MAX_DELAY );

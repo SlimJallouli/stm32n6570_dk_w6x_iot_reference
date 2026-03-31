@@ -339,7 +339,7 @@ void mbedtls_platform_free( void * ptr );
  * macros as described above. The only difference is that you have to make sure
  * that you provide functionality for both .c files.
  */
-/*#define MBEDTLS_ECP_ALT */
+/*#define MBEDTLS_ECP_ALT*/
 
 /**
  * \def MBEDTLS_SHA256_PROCESS_ALT
@@ -390,10 +390,10 @@ void mbedtls_platform_free( void * ptr );
 /*#define MBEDTLS_AES_SETKEY_DEC_ALT */
 /*#define MBEDTLS_AES_ENCRYPT_ALT */
 /*#define MBEDTLS_AES_DECRYPT_ALT */
-/*#define MBEDTLS_ECDH_GEN_PUBLIC_ALT */
-/*#define MBEDTLS_ECDH_COMPUTE_SHARED_ALT */
-/*#define MBEDTLS_ECDSA_VERIFY_ALT */
-/*#define MBEDTLS_ECDSA_SIGN_ALT */
+#define MBEDTLS_ECDH_GEN_PUBLIC_ALT
+#define MBEDTLS_ECDH_COMPUTE_SHARED_ALT
+#define MBEDTLS_ECDSA_VERIFY_ALT
+#define MBEDTLS_ECDSA_SIGN_ALT
 /*#define MBEDTLS_ECDSA_GENKEY_ALT */
 
 /**
@@ -447,15 +447,15 @@ void mbedtls_platform_free( void * ptr );
  * function.
  */
 /* Required for all the functions in this section */
-/*#define MBEDTLS_ECP_INTERNAL_ALT */
+#define MBEDTLS_ECP_INTERNAL_ALT
 /* Turn off software fallback for curves not supported in hardware */
 /*#define MBEDTLS_ECP_NO_FALLBACK */
 /* Support for Weierstrass curves with Jacobi representation */
 /*#define MBEDTLS_ECP_RANDOMIZE_JAC_ALT */
-/*#define MBEDTLS_ECP_ADD_MIXED_ALT */
-/*#define MBEDTLS_ECP_DOUBLE_JAC_ALT */
+#define MBEDTLS_ECP_ADD_MIXED_ALT
+#define MBEDTLS_ECP_DOUBLE_JAC_ALT
 /*#define MBEDTLS_ECP_NORMALIZE_JAC_MANY_ALT */
-/*#define MBEDTLS_ECP_NORMALIZE_JAC_ALT */
+#define MBEDTLS_ECP_NORMALIZE_JAC_ALT
 /* Support for curves with Montgomery arithmetic */
 /*#define MBEDTLS_ECP_DOUBLE_ADD_MXZ_ALT */
 /*#define MBEDTLS_ECP_RANDOMIZE_MXZ_ALT */

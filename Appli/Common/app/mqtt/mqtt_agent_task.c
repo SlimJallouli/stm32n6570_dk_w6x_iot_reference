@@ -292,6 +292,9 @@ void vSleepUntilMQTTAgentReady( void )
 }
 
 /*-----------------------------------------------------------*/
+#ifdef MBEDTLS_DEBUG_C
+extern void mbedtls_debug_set_threshold( int threshold );
+#endif
 
 void vSleepUntilMQTTAgentConnected( void )
 {
@@ -307,6 +310,9 @@ void vSleepUntilMQTTAgentConnected( void )
 
         if( uxEvents & EVT_MASK_MQTT_CONNECTED )
         {
+#ifdef MBEDTLS_DEBUG_C
+            mbedtls_debug_set_threshold( MBEDTLS_DEBUG_ERROR );
+#endif
             break;
         }
     }

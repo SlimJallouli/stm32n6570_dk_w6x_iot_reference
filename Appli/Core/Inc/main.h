@@ -187,7 +187,7 @@ void Error_Handler(void);
 #define TASK_STACK_SIZE_BUTTON                  1024/** Stack size of the Button process task            */
 #define TASK_STACK_SIZE_LED                     1024/** Stack size of the LED process task               */
 #define TASK_STACK_SIZE_CLI                     2048/** Stack size of the CLI process task               */
-#define TASK_STACK_SIZE_MQTT_AGENT              2048/** Stack size of the MQTTAgent process task         */
+#define TASK_STACK_SIZE_MQTT_AGENT              (2 * 2048)/** Stack size of the MQTTAgent process task         */
 #define TASK_STACK_SIZE_W6X                     2048/** Stack size of the W6X process task               */
 
 /******************** W6X debug config ********************/
