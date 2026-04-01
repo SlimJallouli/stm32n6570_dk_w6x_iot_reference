@@ -66,7 +66,10 @@
  * P-256 curve coefficient a = -3.
  * The PKA takes |a| as a big-endian byte array plus a sign flag.
  */
-static const uint8_t P256_A_ABS[EC_P256_BYTES] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03 };
+static const uint8_t P256_A_ABS[EC_P256_BYTES] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03 };
 
 #ifndef PKA_ECC_COEF_SIGN_POSITIVE
 #define PKA_ECC_COEF_SIGN_POSITIVE  0U
@@ -133,7 +136,6 @@ static int ec_group_to_hw_p256(const mbedtls_ecp_group *grp,
 /* =========================================================================
  * Capability / init / free  (mandatory for MBEDTLS_ECP_INTERNAL_ALT)
  * =========================================================================*/
-
 unsigned char mbedtls_internal_ecp_grp_capable(const mbedtls_ecp_group *grp)
 {
   if (grp == NULL)
@@ -190,11 +192,11 @@ int mbedtls_internal_ecp_normalize_jac(const mbedtls_ecp_group *grp, mbedtls_ecp
   int ret = 0;
 
   /* Stack-allocated serialisation buffers (no heap risk here). */
-  uint8_t p_buf[EC_P256_BYTES];
+  uint8_t p_buf [EC_P256_BYTES];
   uint8_t gx_buf[EC_P256_BYTES]; /* needed by ec_group_to_hw_p256, unused by PKA op */
   uint8_t gy_buf[EC_P256_BYTES];
-  uint8_t n_buf[EC_P256_BYTES];
-  uint8_t b_buf[EC_P256_BYTES];
+  uint8_t n_buf [EC_P256_BYTES];
+  uint8_t b_buf [EC_P256_BYTES];
   uint8_t px_buf[EC_P256_BYTES];
   uint8_t py_buf[EC_P256_BYTES];
   uint8_t pz_buf[EC_P256_BYTES];
@@ -204,9 +206,9 @@ int mbedtls_internal_ecp_normalize_jac(const mbedtls_ecp_group *grp, mbedtls_ecp
   uint8_t *out_y = NULL;
   uint32_t montgomery_param[EC_P256_BYTES / 4U];
 
-  PKA_MontgomeryParamInTypeDef mont_in = { 0 };
-  PKA_ECCProjective2AffineInTypeDef in = { 0 };
-  PKA_ECCProjective2AffineOutTypeDef out = { 0 };
+  PKA_MontgomeryParamInTypeDef       mont_in = { 0 };
+  PKA_ECCProjective2AffineInTypeDef  in      = { 0 };
+  PKA_ECCProjective2AffineOutTypeDef out     = { 0 };
 
   /* --- Guard --------------------------------------------------------*/
   if (grp == NULL || pt == NULL)
@@ -356,9 +358,9 @@ int mbedtls_internal_ecp_double_jac(const mbedtls_ecp_group *grp, mbedtls_ecp_po
 
   /* --- Build PKA input: both addends = P ----------------------------*/
   in.modulusSize = EC_P256_BYTES;
-  in.coefSign = PKA_ECC_COEF_SIGN_NEGATIVE; /* a = -3 for P-256 */
-  in.coefA = P256_A_ABS;
-  in.modulus = p_buf;
+  in.coefSign    = PKA_ECC_COEF_SIGN_NEGATIVE; /* a = -3 for P-256 */
+  in.coefA       = P256_A_ABS;
+  in.modulus     = p_buf;
   in.basePointX1 = px_buf; /* first addend: P  */
   in.basePointY1 = py_buf;
   in.basePointZ1 = pz_buf;
@@ -387,9 +389,11 @@ int mbedtls_internal_ecp_double_jac(const mbedtls_ecp_group *grp, mbedtls_ecp_po
   MBEDTLS_MPI_CHK(be32_to_mpi( &R->MBEDTLS_PRIVATE(Y), out_y ));
   MBEDTLS_MPI_CHK(be32_to_mpi( &R->MBEDTLS_PRIVATE(Z), out_z ));
 
-  cleanup: vPortFree(out_x);
+cleanup:
+  vPortFree(out_x);
   vPortFree(out_y);
   vPortFree(out_z);
+
   return ret;
 }
 #endif /* MBEDTLS_ECP_DOUBLE_JAC_ALT */
@@ -421,11 +425,11 @@ int mbedtls_internal_ecp_add_mixed(const mbedtls_ecp_group *grp, mbedtls_ecp_poi
 {
   int ret = 0;
 
-  uint8_t p_buf[EC_P256_BYTES];
+  uint8_t p_buf [EC_P256_BYTES];
   uint8_t gx_buf[EC_P256_BYTES];
   uint8_t gy_buf[EC_P256_BYTES];
-  uint8_t n_buf[EC_P256_BYTES];
-  uint8_t b_buf[EC_P256_BYTES];
+  uint8_t n_buf [EC_P256_BYTES];
+  uint8_t b_buf [EC_P256_BYTES];
   uint8_t px_buf[EC_P256_BYTES];
   uint8_t py_buf[EC_P256_BYTES];
   uint8_t pz_buf[EC_P256_BYTES];
@@ -433,7 +437,10 @@ int mbedtls_internal_ecp_add_mixed(const mbedtls_ecp_group *grp, mbedtls_ecp_poi
   uint8_t qy_buf[EC_P256_BYTES];
 
   /* Z = 1 for the affine point Q — constant, no heap needed. */
-  static const uint8_t z_one[EC_P256_BYTES] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+  static const uint8_t z_one[EC_P256_BYTES] = { 0, 0, 0, 0, 0, 0, 0, 0,
+                                                0, 0, 0, 0, 0, 0, 0, 0,
+                                                0, 0, 0, 0, 0, 0, 0, 0,
+                                                0, 0, 0, 0, 0, 0, 0, 1 };
 
   uint8_t *out_x = NULL;
   uint8_t *out_y = NULL;
@@ -524,7 +531,7 @@ int mbedtls_internal_ecp_add_mixed(const mbedtls_ecp_group *grp, mbedtls_ecp_poi
   MBEDTLS_MPI_CHK(be32_to_mpi( &R->MBEDTLS_PRIVATE(Y), out_y ));
   MBEDTLS_MPI_CHK(be32_to_mpi( &R->MBEDTLS_PRIVATE(Z), out_z ));
 
-  cleanup:
+ cleanup:
   /* vPortFree(NULL) is a documented FreeRTOS no-op — safe to always call. */
   vPortFree(out_x);
   vPortFree(out_y);

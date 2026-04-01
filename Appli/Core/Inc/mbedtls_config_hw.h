@@ -639,7 +639,7 @@ void mbedtls_platform_free( void * ptr );
 /*#define MBEDTLS_ECP_DP_BP512R1_ENABLED   */
 /* Montgomery curves (supporting ECP)      */
 /*#define MBEDTLS_ECP_DP_CURVE25519_ENABLED*/
-/*9#define MBEDTLS_ECP_DP_CURVE448_ENABLED */
+/*#define MBEDTLS_ECP_DP_CURVE448_ENABLED  */
 
 /**
  * \def MBEDTLS_ECP_NIST_OPTIM
