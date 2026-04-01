@@ -36,7 +36,6 @@
 #include "stm32n6xx_hal.h"
 #include <string.h>
 #include "FreeRTOS.h"
-#include "task.h"
 
 #if defined(MBEDTLS_ECDSA_SIGN_ALT) || defined(MBEDTLS_ECDSA_VERIFY_ALT)
 
@@ -200,9 +199,6 @@ int mbedtls_ecdsa_sign( mbedtls_ecp_group *grp,
 
 	PKA_ECDSASignOutTypeDef out = { 0 };
 	PKA_ECDSASignOutExtParamTypeDef outExt = { 0 };
-	mbedtls_ecp_point Q;
-
-	mbedtls_ecp_point_init(&Q);
 
 	if (grp->id != MBEDTLS_ECP_DP_SECP256R1)
 	{
@@ -240,11 +236,16 @@ int mbedtls_ecdsa_sign( mbedtls_ecp_group *grp,
 		goto cleanup;
 	}
 
-	out.RSign = pvPortMalloc(PKA_ECDSA_SIGN_OUT_SIGNATURE_R);
-	out.SSign = pvPortMalloc(PKA_ECDSA_SIGN_OUT_SIGNATURE_S);
-
-	outExt.ptX = pvPortMalloc(PKA_ECDSA_SIGN_OUT_FINAL_POINT_X);
-	outExt.ptY = pvPortMalloc(PKA_ECDSA_SIGN_OUT_FINAL_POINT_Y);
+	out.RSign = pvPortMalloc(EC_P256_BYTES);
+	out.SSign = pvPortMalloc(EC_P256_BYTES);
+	outExt.ptX = pvPortMalloc(EC_P256_BYTES);
+	outExt.ptY = pvPortMalloc(EC_P256_BYTES);
+	if ((out.RSign == NULL) || (out.SSign == NULL) || (outExt.ptX == NULL) || (outExt.ptY == NULL))
+	{
+		LogError("ECDSA_SIGN: output buffer alloc failed");
+		ret = MBEDTLS_ERR_ECP_ALLOC_FAILED;
+		goto cleanup;
+	}
 
 	HAL_PKA_ECDSASign_GetResult(&hpka, &out, &outExt);
 
@@ -254,20 +255,7 @@ int mbedtls_ecdsa_sign( mbedtls_ecp_group *grp,
 	MBEDTLS_MPI_CHK(be32_to_mpi(r, r_buf));
 	MBEDTLS_MPI_CHK(be32_to_mpi(s, s_buf));
 
-	/* Validate HW signature. If invalid, fall back to software signing. */
-	MBEDTLS_MPI_CHK(mbedtls_ecp_mul(grp, &Q, d, &grp->G, f_rng, p_rng));
-	ret = mbedtls_ecdsa_verify(grp, buf, blen, &Q, r, s);
-
-	if (ret != 0)
-	{
-		LogError("PKA ECDSA signature verify failed (%d)", ret);
-		vTaskDelay(100);
-		ret = MBEDTLS_ERR_ECP_HW_ACCEL_FAILED;
-	}
-
 cleanup:
-	mbedtls_ecp_point_free(&Q);
-
 	if (out.RSign != NULL)
 	{
 		vPortFree(out.RSign);
