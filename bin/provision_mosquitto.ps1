@@ -2,12 +2,6 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $configPath = Join-Path $scriptDir "config.json"
 $config = Get-Content -Raw -Path $configPath | ConvertFrom-Json
-$brokerType = $config.broker_type
-
-# Guard: this script is mosquitto-only
-if ($brokerType -ne "mosquitto") {
-    throw "This script supports broker_type 'mosquitto' only. Current value: '$brokerType'."
-}
 
 # Auto-detect STLink Virtual COM Port
 $portName = Get-CimInstance Win32_SerialPort | Where-Object { $_.Name -like "*STLink Virtual COM Port*" } | Select-Object -ExpandProperty DeviceID
