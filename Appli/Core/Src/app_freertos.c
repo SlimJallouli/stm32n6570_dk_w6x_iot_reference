@@ -37,9 +37,7 @@
 #include "semphr.h"
 
 #include <string.h>
-#if 1//defined(LFS_CONFIG)
 
-#endif
 #include "kvstore.h"
 #include "sys_evt.h"
 
@@ -77,7 +75,7 @@ EventGroupHandle_t xSystemEvents = NULL;
 /* USER CODE BEGIN FunctionPrototypes */
 void vInitTask(void *pvArgs);
 
-#if 1//defined(LFS_CONFIG)
+#if defined(LFS_CONFIG)
 #include "lfs.h"
 #include "lfs_port.h"
 
