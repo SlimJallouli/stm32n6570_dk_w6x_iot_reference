@@ -14,6 +14,8 @@ This repository provides a complete MQTT-over-TLS reference for the [STM32N6570-
 It is built for a repeatable bring-up workflow: flash, provision, validate, and then move to source-level build/debug in STM32CubeIDE.
 Validated broker flows in this repository are AWS IoT Core and Mosquitto.
 
+---
+
 ## ⚡ Hardware Crypto Acceleration
 
 This firmware leverages the STM32N6570's advanced cryptographic hardware accelerators to enhance security performance:
@@ -33,6 +35,18 @@ These accelerators are **enabled by default** in MbedTLS via hardware abstractio
 
 Configuration details: See [Appli/Common/crypto/ReadMe.md](Appli/Common/crypto/ReadMe.md) and [Appli/Core/Inc/mbedtls_config_hw.h](Appli/Core/Inc/mbedtls_config_hw.h).
 
+---
+
+### 🛡️ Independent Watchdog (IWDG)
+
+This firmware also enables the **Independent Watchdog (IWDG)** to ensure the system cannot remain stuck in a blocked state.  
+The watchdog is **refreshed from the FreeRTOS Idle Task**, ensuring that only a healthy, running scheduler can keep the system alive.
+
+The **IWDG Early Wakeup Interrupt (EWU)** is also enabled.  
+It triggers shortly before the watchdog expires, allowing the firmware to capture diagnostic information.
+
+---
+
 ## What This Project Covers
 
 - Hardware:
@@ -47,8 +61,10 @@ Configuration details: See [Appli/Common/crypto/ReadMe.md](Appli/Common/crypto/R
   - LED control over MQTT
   - Button event reporting over MQTT
 - Provisioning targets:
-  - AWS IoT Core (with auto-provisioning)
+  - AWS IoT Core
   - Mosquitto
+
+---
 
 ## Required Software
 
@@ -61,6 +77,8 @@ If you use AWS IoT Core:
 - [AWS account](https://aws.amazon.com/)
 - [AWS CLI installation](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [`aws configure` quickstart](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+
+---
 
 ## Quick Start
 
@@ -76,6 +94,8 @@ If you use AWS IoT Core:
 6. Open serial logs and validate LED/Button MQTT behavior.
 
 For full scripted flashing/provisioning details, see [`bin/readme.md`](bin/readme.md).
+
+---
 
 ## Build Configurations
 
@@ -93,6 +113,8 @@ The `Appli` project in STM32CubeIDE comes with two build configurations, allowin
 
 Both configurations use identical MQTT/FreeRTOS/LwIP stacks and are binary-compatible for provisioning workflows—only the crypto backend differs.
 
+---
+
 ## Runtime Architecture
 
 ```mermaid
@@ -104,6 +126,8 @@ flowchart TD
     E --> F[vLEDTask]
     E --> G[vButtonTask]
 ```
+
+---
 
 ## Documentation Guide
 
@@ -122,6 +146,8 @@ flowchart TD
 | Repository structure | [docs/repo_structure.md](docs/repo_structure.md) |
 | Troubleshooting | [docs/troubleshooting.md](docs/troubleshooting.md) |
 
+---
+
 ## Module Guides
 
 - Button app: [Appli/Common/app/button/readme.md](Appli/Common/app/button/readme.md)
@@ -129,6 +155,10 @@ flowchart TD
 - CLI: [Appli/Common/cli/ReadMe.md](Appli/Common/cli/ReadMe.md)
 - Crypto: [Appli/Common/crypto/ReadMe.md](Appli/Common/crypto/ReadMe.md)
 - KVStore: [Appli/Common/kvstore/ReadMe.md](Appli/Common/kvstore/ReadMe.md)
+- corePKCS11: [https://github.com/FreeRTOS/corePKCS11](https://github.com/FreeRTOS/corePKCS11)
+- LittleFS: [https://github.com/littlefs-project/littlefs](https://github.com/littlefs-project/littlefs)
+
+---
 
 ## Build and Flash Paths
 
@@ -137,6 +167,8 @@ flowchart TD
   - `Appli`
 - Build and debug/flash details:
   - [docs/debug.md](docs/debug.md)
+
+---
 
 ## Git Submodules Used
 
