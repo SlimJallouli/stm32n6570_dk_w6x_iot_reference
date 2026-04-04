@@ -87,7 +87,7 @@ lfs_t* pxGetDefaultFsCtx(void);
 
 extern void vLEDTask                     ( void * pvParameters );
 extern void vButtonTask                  ( void * pvParameters );
-
+extern void vSubscribePublishTestTask    ( void * pvParameters );
 /* USER CODE END FunctionPrototypes */
 
 /* USER CODE BEGIN 5 */
@@ -299,6 +299,10 @@ void StartDefaultTask(void *argument)
 
 #if DEMO_BUTTON
       xTaskCreate(vButtonTask, "ButtonTask", TASK_STACK_SIZE_BUTTON, NULL, TASK_PRIO_BUTTON, NULL);
+#endif
+
+#if DEMO_PUB_SUB
+  xTaskCreate(vSubscribePublishTestTask, "PubSub", TASK_STACK_SIZE_PUBLISH, NULL, TASK_PRIO_PUBLISH, NULL);
 #endif
 
   /* Infinite loop */
