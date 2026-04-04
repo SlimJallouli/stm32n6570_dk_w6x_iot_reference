@@ -5,7 +5,7 @@ This reference firmware enables the hardware cryptographic accelerators and outl
 
 ---
 
-## Hardware Security Features
+## Hardware Security
 
 The STM32N6570 includes several built‑in security capabilities:
 
@@ -30,15 +30,6 @@ Hardware‑enforced isolation between **Secure** and **Non‑Secure** worlds, en
 
 TrustZone‑M provides the foundation for secure boot, secure firmware update, and secure key storage by ensuring that critical operations execute only in the Secure domain.
 
-### **Secure Boot**  
-Cryptographic verification of firmware integrity and authenticity at startup.
-
-### **OEMuRoT (OEM micro‑Root of Trust)**  
-Lightweight hardware‑anchored Root of Trust supporting:
-- Secure provisioning  
-- Secure firmware updates  
-- Anti‑rollback protection  
-
 ### **Memory Cipher Engine (MCE)**  
 The STM32N6570 includes a **Memory Cipher Engine** capable of encrypting and decrypting external memory regions on‑the‑fly.  
 MCE provides:
@@ -56,8 +47,29 @@ MCE is recommended for deployments where external flash contains sensitive mater
 For more details:  
 *AN6088 – How to use MCE for encryption/decryption on STM32 MCUs*
 
+### Independent Watchdog (IWDG)
+
+This firmware also enables the **Independent Watchdog (IWDG)** to ensure the system cannot remain stuck in a blocked state.  
+The watchdog is **refreshed from the FreeRTOS Idle Task**, ensuring that only a healthy, running scheduler can keep the system alive.
+
+The **IWDG Early Wakeup Interrupt (EWU)** is also enabled.  
+It triggers shortly before the watchdog expires, allowing the firmware to capture diagnostic information.
+
 ### Additional Resources  
 - [Security features on STM32N6 MCUs](https://wiki.st.com/stm32mcu/wiki/Security:Security_features_on_STM32N6_MCUs)  
+
+## Software Security
+
+### **Secure Boot**  
+Cryptographic verification of firmware integrity and authenticity at startup.
+
+### **OEMuRoT (OEM micro‑Root of Trust)**  
+Lightweight hardware‑anchored Root of Trust supporting:
+- Secure provisioning  
+- Secure firmware updates  
+- Anti‑rollback protection  
+
+### Additional Resources  
 - [OEMuRoT for STM32N6](https://wiki.st.com/stm32mcu/wiki/Security:OEMuRoT_for_STM32N6)
 
 ---

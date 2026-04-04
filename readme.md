@@ -37,16 +37,6 @@ Configuration details: See [Appli/Common/crypto/ReadMe.md](Appli/Common/crypto/R
 
 ---
 
-### 🛡️ Independent Watchdog (IWDG)
-
-This firmware also enables the **Independent Watchdog (IWDG)** to ensure the system cannot remain stuck in a blocked state.  
-The watchdog is **refreshed from the FreeRTOS Idle Task**, ensuring that only a healthy, running scheduler can keep the system alive.
-
-The **IWDG Early Wakeup Interrupt (EWU)** is also enabled.  
-It triggers shortly before the watchdog expires, allowing the firmware to capture diagnostic information.
-
----
-
 ## What This Project Covers
 
 - Hardware:
